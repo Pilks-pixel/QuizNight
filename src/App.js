@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import Questions from './components/Questions';
+import { useState } from 'react';
 
 function App() {
+
+  const [showQuestion, setShowQuestion] = useState(false)
+
+  function handleClick() {
+    return setShowQuestion(prevShowQuestion => !prevShowQuestion)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Quiz Night</h1>
+      <p>Welcome to Quiz Night, you will face 10 questions</p>
+      <button onClick={handleClick}>Start</button>
+
+      { showQuestion && <Questions />}
+
     </div>
   );
 }
