@@ -1,54 +1,53 @@
-import { useState, useEffect } from "react";
-import quizData from "../quizData";
+import { React } from "react";
 
 
-export default function Questions() {
 
-    const [questionNum, setQuestionNum] = useState(1)
-    const [quizQuestion, setQuizQuestion] = useState(quizData.results[0])
-    const [gameFinished, setGameFinished] = useState(false)
-    const [score, setScore] = useState(0)
-
-    console.log(score)
-
-    // useEffect(() => {
-
-    // },[quizQuestion])
-
+export default function Questions(props) {
 
     
     
-    const AnswerButtons = () => {
-        const answers = [...quizQuestion.incorrect_answers, quizQuestion.correct_answer]
-        answers.sort(() => Math.random() - 0.5)
-        console.log(answers)
+    
+    
+    // const AnswerButtons = () => {
+    //     const answers = [...quizQuestion.incorrect_answers, quizQuestion.correct_answer]
+    //     answers.sort(() => Math.random() - 0.5)
+    //     console.log(answers)
         
-        function answerClick(a) {
-            if (questionNum === quizData.results.length) {
-                setGameFinished(true)
-                return a === quizQuestion.correct_answer? setScore(prevSetScore => prevSetScore + 1) : score
-            } else {
-                setQuizQuestion(quizData.results[questionNum])
-                setQuestionNum(prevQuestionNum => prevQuestionNum + 1) 
-                return a === quizQuestion.correct_answer? setScore(prevSetScore => prevSetScore + 1) : score
-                }
         
-        }
+        
 
-        return (
-            <>
-                {answers.map((a) => <button onClick={() => answerClick(a)}>{a}</button>)}
-                
-            </>
-    )}
+    //         let styles = {
+    //             backgroundColor: '#f5f5f5'
+    //         }
+            
+            
+    //         function answerClick(a) {
+    //             if (questionNum === quizData.results.length) {
+    //                 setGameFinished(true)
+    //                 return a === quizQuestion.correct_answer? props.setTotalScore(prevScore => prevScore + 1) :
+    //                 props.totalScore
+    //             } else {
+    //                 a === quizQuestion.correct_answer? styles = {backgroundColor: '#59E391'} : styles = {backgroundColor: 'red'}
+    //                 setQuizQuestion(quizData.results[questionNum])
+    //                 setQuestionNum(prevQuestionNum => prevQuestionNum + 1) 
+    //                 return a === quizQuestion.correct_answer? props.setTotalScore(prevScore => prevScore + 1):
+    //                 props.totalScore
+    //             }
+    //         }
+            
+            
+    //         return (
+    //             <>
+    //             {answers.map((a) => <button style={styles} onClick={() => answerClick(a)}>{a}</button>)}
+    //             </>
+    //         )
+
     
-
+    
     
     return(
         <>
-            <h3>{quizQuestion.question}</h3>
-            {<AnswerButtons />}
-            {gameFinished && <h2>Go to Scores</h2>}
+            <h3>{props.question.question}</h3>
         </>
     )
 };
