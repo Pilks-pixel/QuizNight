@@ -1,7 +1,7 @@
 import './App.css';
 import Questions from './components/Questions';
 import AnswerButtons from './components/AnswerButtons';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import quizData from "./quizData";
 
 
@@ -12,33 +12,32 @@ function App() {
   const [questionNum, setQuestionNum] = useState(1)
   const [quizQuestion, setQuizQuestion] = useState(quizData.results[0])
   const [gameFinished, setGameFinished] = useState(false)
-    
+  const [buttonStyles, setButtonStyles] = useState({backgroundColor: '#f5f5f5'}) 
+  const btnDisable = useRef();
 
+  
 
   function handleClick() {
     return setShowQuestion(prevShowQuestion => !prevShowQuestion)
   }
 
-  useEffect((a) => {
-    // const timer = setTimeout(() => {
-    //   setQuizQuestion(quizData.results[questionNum])
-    //     setQuestionNum(prevQuestionNum => prevQuestionNum + 1) 
-    // }, 3000);
-    // return () => clearTimeout(timer);
-
-  },[])
-
   function answerClick(a) {
     if (questionNum === quizData.results.length) {
         setGameFinished(true)
+        btnDisable.current.disabled = true
+        a === quizQuestion.correct_answer? setButtonStyles({backgroundColor: '#00FF00'}) : setButtonStyles({backgroundColor: 'red'})
         return a === quizQuestion.correct_answer? setScore(prevScore => prevScore + 1) :
         score
     } else {
-        // a === quizQuestion.correct_answer? styles = {backgroundColor: 'green'} : styles = {backgroundColor: 'red'}
-        setTimeout(() => {setQuizQuestion(quizData.results[questionNum])}, 3000)
-        setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 3000)
-        return a === quizQuestion.correct_answer? setScore(prevScore => prevScore + 1):
+        btnDisable.current.disabled = true
+        a === quizQuestion.correct_answer? setButtonStyles({backgroundColor: '#00FF00'}) : setButtonStyles({backgroundColor: 'red'})
+        setTimeout(() => {setQuizQuestion(quizData.results[questionNum])}, 400)
+        setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
+        setTimeout(() => {setButtonStyles({backgroundColor: '#f5f5f5'})}, 400)
+        setTimeout(() => {btnDisable.current.disabled = false}, 400)
+        return a === quizQuestion.correct_answer? setScore(prevScore => prevScore + 1) :
         score
+        
     }
 }
 
@@ -52,7 +51,14 @@ function App() {
       { showQuestion && 
       <>
       <Questions question={quizQuestion}/>
-      <AnswerButtons question={quizQuestion} qNumber={questionNum} newQuestion={answerClick}/>
+      <AnswerButtons 
+      question={quizQuestion} 
+      qNumber={questionNum} 
+      newQuestion={answerClick} 
+      styles={buttonStyles} 
+      btnOff={btnDisable}
+
+      />
       </>
       }
 

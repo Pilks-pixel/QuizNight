@@ -11,15 +11,11 @@ export default function AnswerButtons(props) {
     },[props.question])
     
     
-    
-    let styles = {
-            backgroundColor: '#f5f5f5'
-        }
         
         
     return (
             <>
-            {answers.map((a) => <button style={styles} onClick={() => props.newQuestion(a)}>{a}</button>)}
+            {answers.map((a) => <button style={props.styles}  ref={props.btnOff} onClick={() => props.newQuestion(a, props.btnOff)}>{a}</button>)}
             </>
         )
 }
