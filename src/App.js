@@ -27,7 +27,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=10')
+    fetch('https://opentdb.com/api.php?amount=10&url3986')
     .then(response => response.json())
     .then(data => setQuizData(data.results));
   },[])

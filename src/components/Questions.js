@@ -4,14 +4,17 @@ import { React } from "react";
 
 export default function Questions(props) {
 
-    
-    // let uri = props.question.question
-    // decodeURI(uri)
+    // decodes the data coming form the API
+    const decodeHTML = function (html) {
+        const txt = document.createElement('textarea')
+        txt.innerHTML = html
+        return txt.value
+      }
     
     return(
         <>
 
-            <h3>{decodeURI(props.question.question)}</h3>
+            <h3>{decodeHTML(props.question.question)}</h3>
         </>
     )
 };
