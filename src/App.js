@@ -1,47 +1,61 @@
 import './App.css';
 import Questions from './components/Questions';
 import AnswerButtons from './components/AnswerButtons';
-import { useEffect, useState } from 'react';
-import quizData from "./quizData";
+import { useState, useRef, useEffect } from 'react';
+
+
 
 
 function App() {
 
   const [showQuestion, setShowQuestion] = useState(false)
   const [score, setScore] = useState(0)
-  const [questionNum, setQuestionNum] = useState(1)
-  const [quizQuestion, setQuizQuestion] = useState(quizData.results[0])
+  const [quizData, setQuizData] = useState([])
+  const [questionNum, setQuestionNum] = useState(0)
   const [gameFinished, setGameFinished] = useState(false)
-    
+  const [buttonStyles, setButtonStyles] = useState({backgroundColor: '#f5f5f5'}) 
+  const btnDisable = useRef();
 
+  console.log(quizData)
+  console.log(quizData[questionNum])
+
+
+  
 
   function handleClick() {
     return setShowQuestion(prevShowQuestion => !prevShowQuestion)
   }
 
-  useEffect((a) => {
-    // const timer = setTimeout(() => {
-    //   setQuizQuestion(quizData.results[questionNum])
-    //     setQuestionNum(prevQuestionNum => prevQuestionNum + 1) 
-    // }, 3000);
-    // return () => clearTimeout(timer);
-
+  useEffect(() => {
+    fetch('https://opentdb.com/api.php?amount=10')
+    .then(response => response.json())
+    .then(data => setQuizData(data.results));
   },[])
 
-  function answerClick(a) {
-    if (questionNum === quizData.results.length) {
+  
+    function answerClick(a) {
+
+    if (questionNum === quizData.length - 1) {
         setGameFinished(true)
-        return a === quizQuestion.correct_answer? setScore(prevScore => prevScore + 1) :
+        // btnDisable.current.disabled = true
+        a === quizData.correct_answer? setButtonStyles({backgroundColor: '#00FF00'}) : setButtonStyles({backgroundColor: 'red'})
+        return a === quizData[questionNum].correct_answer? setScore(prevScore => prevScore + 1) :
         score
     } else {
-        // a === quizQuestion.correct_answer? styles = {backgroundColor: 'green'} : styles = {backgroundColor: 'red'}
-        setTimeout(() => {setQuizQuestion(quizData.results[questionNum])}, 3000)
-        setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 3000)
-        return a === quizQuestion.correct_answer? setScore(prevScore => prevScore + 1):
+        // btnDisable.current.disabled = true
+        a === quizData[questionNum].correct_answer? setButtonStyles({backgroundColor: '#00FF00'}) : setButtonStyles({backgroundColor: 'red'})
+        // setTimeout(() => {setQuizQuestion(quizData[questionNum])}, 400)
+        setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
+        setTimeout(() => {setButtonStyles({backgroundColor: '#f5f5f5'})}, 400)
+        // setTimeout(() => {btnDisable.current.disabled = false}, 400)
+        return a === quizData[questionNum].correct_answer? setScore(prevScore => prevScore + 1) :
         score
+        
     }
-}
+  } 
 
+  
+  
 
   return (
     <div className="App">
@@ -51,8 +65,14 @@ function App() {
 
       { showQuestion && 
       <>
-      <Questions question={quizQuestion}/>
-      <AnswerButtons question={quizQuestion} qNumber={questionNum} newQuestion={answerClick}/>
+        <Questions question={quizData[questionNum]}/>
+        <AnswerButtons 
+        question={quizData[questionNum]} 
+        qNumber={questionNum} 
+        newQuestion={answerClick} 
+        styles={buttonStyles} 
+        btnOff={btnDisable}
+        />
       </>
       }
 
