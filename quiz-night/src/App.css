@@ -2,3 +2,16 @@
   text-align: center;
 }
 
+button {
+  background-color: #f5f5f5
+}
+
+.correct {
+  background-color: rgb(53, 212, 53);
+
+}
+
+.incorrect {
+  background-color: rgb(206, 58, 58);
+
+}

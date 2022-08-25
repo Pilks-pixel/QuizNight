@@ -26,7 +26,15 @@ export default function AnswerButtons(props) {
     console.log(answerOptions)
 
     // Iterates over the answerOptions array and generates a button for each one
-    const answerBtnElements = answerOptions.map((a) => <button style={props.styles}  ref={props.btnOff} onClick={() => props.newQuestion(a)}>{a}</button>)
+    const answerBtnElements = answerOptions.map((a) => {
+    return <button 
+    className={!props.selected? " " :props.selected && a === decodedAnswer? "correct" : "incorrect"} 
+    style={props.styles}  
+    ref={props.btnOff} 
+    onClick={() => props.newQuestion(a)}
+    >
+        {a}</button>
+})
         
         
     return (

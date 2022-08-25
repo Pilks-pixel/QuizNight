@@ -9,8 +9,7 @@ function Home(props) {
   const [showQuestion, setShowQuestion] = useState(false);
   const [quizData, setQuizData] = useState([]);
   const [questionNum, setQuestionNum] = useState(0);
-//   const [gameFinished, setGameFinished] = useState(false);
-  const [buttonStyles, setButtonStyles] = useState({backgroundColor: '#f5f5f5'}); 
+  const [answerSelected, setAnswerSelected ] = useState(false)
   const btnDisable = useRef();
 
   console.log(quizData)
@@ -31,9 +30,6 @@ function Home(props) {
         ...prevPlayer,
         [name]: value}
     })
-    console.log(props.player)
-    // console.log(props.gameFinished)
-
   };
 
   // Loads 10 questions array from open trivia API when page loads
@@ -48,17 +44,17 @@ function Home(props) {
 
     if (questionNum === quizData.length - 1) {
         props.setGameFinished(true)
+        setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         // btnDisable.current.disabled = true
-        a === quizData.correct_answer? setButtonStyles({backgroundColor: '#00FF00'}) : setButtonStyles({backgroundColor: 'red'})
         return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer,playerScore: prevPlayer.playerScore + 1})) : 
         props.player.playerScore
 
 
     } else {
         // btnDisable.current.disabled = true
-        a === quizData[questionNum].correct_answer? setButtonStyles({backgroundColor: '#00FF00'}) : setButtonStyles({backgroundColor: 'red'})
+        setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
-        setTimeout(() => {setButtonStyles({backgroundColor: '#f5f5f5'})}, 400)
+        setTimeout(() => {setAnswerSelected(false)}, 400)
         // setTimeout(() => {btnDisable.current.disabled = false}, 400)
         return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, playerScore: prevPlayer.playerScore + 1  })) :
         props.player.playerScore
@@ -66,7 +62,7 @@ function Home(props) {
     }
   } 
 
-  console.log(props.player)
+  // console.log(props.player)
   
   
     return(
@@ -96,8 +92,8 @@ function Home(props) {
         question={quizData[questionNum]} 
         qNumber={questionNum} 
         newQuestion={answerClick} 
-        styles={buttonStyles} 
         btnOff={btnDisable}
+        selected={answerSelected}
         />
       </>
       }
