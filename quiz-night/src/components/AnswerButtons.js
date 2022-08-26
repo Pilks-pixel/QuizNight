@@ -30,8 +30,9 @@ export default function AnswerButtons(props) {
     return <button 
     className={!props.selected? " " :props.selected && a === decodedAnswer? "correct" : "incorrect"} 
     style={props.styles}  
-    ref={props.btnOff} 
     onClick={() => props.newQuestion(a)}
+    disabled={props.btnOff}
+
     >
         {a}</button>
 })
