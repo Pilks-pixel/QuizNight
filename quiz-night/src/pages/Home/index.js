@@ -1,6 +1,6 @@
 import React from "react";
 import { Questions, AnswerButtons } from "../../components";
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 
@@ -9,11 +9,11 @@ function Home(props) {
   const [showQuestion, setShowQuestion] = useState(false);
   const [quizData, setQuizData] = useState([]);
   const [questionNum, setQuestionNum] = useState(0);
-  const [answerSelected, setAnswerSelected ] = useState(false)
-  const btnDisable = useRef();
+  const [answerSelected, setAnswerSelected ] = useState(false);
+  const [disable, setDisable] = useState(false);
 
-  console.log(quizData)
-  console.log(quizData[questionNum])
+  console.log(quizData);
+  console.log(quizData[questionNum]);
 
 
   
@@ -40,12 +40,13 @@ function Home(props) {
   },[]);
 
   
+  // OnClick function for Quiz Answers, controls score, questionNumber and answerSelected states
     function answerClick(a) {
 
     if (questionNum === quizData.length - 1) {
         props.setGameFinished(true)
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
-        // btnDisable.current.disabled = true
+        setDisable(true)
         return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer,playerScore: prevPlayer.playerScore + 1})) : 
         props.player.playerScore
 
@@ -55,7 +56,6 @@ function Home(props) {
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
         setTimeout(() => {setAnswerSelected(false)}, 400)
-        // setTimeout(() => {btnDisable.current.disabled = false}, 400)
         return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, playerScore: prevPlayer.playerScore + 1  })) :
         props.player.playerScore
         
@@ -67,10 +67,10 @@ function Home(props) {
   
     return(
         <div className="Home">
-      <p>Welcome to Quiz Night, you will face 10 questions</p>
 
       { !showQuestion &&
       <>
+        <h3>Welcome to Quiz Night, you will face 10 questions</h3>
         <p>Enter Player Name</p>
         <form>
           <input 
@@ -92,7 +92,7 @@ function Home(props) {
         question={quizData[questionNum]} 
         qNumber={questionNum} 
         newQuestion={answerClick} 
-        btnOff={btnDisable}
+        btnOff={disable}
         selected={answerSelected}
         />
       </>

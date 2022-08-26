@@ -3,7 +3,7 @@ import { React, useState, useEffect } from "react";
 
 export default function LeaderTable(props) {
 
-    const [leaders, setLeaders] = useState([{ playerName: 'x', playerScore: 5 }, { playerName: 'y', playerScore: 6 }, { playerName: 'z', playerScore: 3 }]);
+    const [leaders, setLeaders] = useState([{ playerName: 'Rambo', playerScore: 5 }, { playerName: 'Pikachu', playerScore: 6 }, { playerName: 'Woody', playerScore: 3 }]);
     const newPlayer = props.player;
 
 
