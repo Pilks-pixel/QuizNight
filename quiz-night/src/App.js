@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function App() {
 
-  const [playerData, setPlayerData] = useState({playerName:"",playerScore:0});
+  const [playerData, setPlayerData] = useState({name:"",score:0});
   const [gameEnded, setGameEnded] = useState(false);
 
   

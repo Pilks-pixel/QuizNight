@@ -2,6 +2,8 @@ import React from "react";
 import { Questions, AnswerButtons } from "../../components";
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+const axios = require('axios');
+
 
 
 function Home(props) {
@@ -14,6 +16,8 @@ function Home(props) {
 
   console.log(quizData);
   console.log(quizData[questionNum]);
+
+
 
 
   
@@ -34,7 +38,7 @@ function Home(props) {
 
   // Loads 10 questions array from open trivia API when page loads
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=10&url3986')
+    fetch('https://opentdb.com/api.php?amount=3&url3986')
     .then(response => response.json())
     .then(data => setQuizData(data.results));
   },[]);
@@ -47,7 +51,7 @@ function Home(props) {
         props.setGameFinished(true)
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setDisable(true)
-        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer,playerScore: prevPlayer.playerScore + 1})) : 
+        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, score: prevPlayer.score + 1})) : 
         props.player.playerScore
 
 
@@ -56,13 +60,34 @@ function Home(props) {
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
         setTimeout(() => {setAnswerSelected(false)}, 400)
-        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, playerScore: prevPlayer.playerScore + 1  })) :
+        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, score: prevPlayer.score + 1  })) :
         props.player.playerScore
         
     }
   } 
 
-  // console.log(props.player)
+  useEffect(() => {
+    if (props.gameFinished) {
+      async function highS() {
+          try {
+              let resp = await axios.post("https://q-night.herokuapp.com/leaderBoard", {
+              name: props.player.name,
+              score: props.player.score
+          });
+          console.log(resp.data)
+          console.log(resp)
+          
+          }   
+          catch(err) {
+              console.error(err);
+      }
+   }
+   highS();
+  }
+
+  }, [props.gameFinished])
+  
+
   
   
     return(
@@ -77,8 +102,8 @@ function Home(props) {
             type="text"
             placeholder="Enter Player Name"
             onChange={handleChange}
-            name="playerName"
-            value={props.player.playerName}
+            name="name"
+            value={props.player.name}
           />
         </form>
         <button onClick={handleClick}>Start</button>
@@ -98,7 +123,7 @@ function Home(props) {
       </>
       }
       <br></br>
-      {showQuestion && `${props.player.playerName}'s Score: ${props.player.playerScore}`}
+      {showQuestion && `${props.player.name}'s Score: ${props.player.score}`}
       <br></br>
       {props.gameFinished && <Link to="/leaderBoard">Go to Scores</Link> }
 
