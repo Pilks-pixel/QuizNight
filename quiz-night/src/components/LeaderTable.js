@@ -6,11 +6,8 @@ const axios = require('axios');
 export default function LeaderTable(props) {
 
     const [leaders, setLeaders] = useState([]);
-    // const newPlayer = props.player;
 
 
-    
-    
     useEffect(() => {
         async function getLeaders() {
             try {
@@ -26,26 +23,6 @@ export default function LeaderTable(props) {
             }
         }
 
-        // if (props.gameFinished) {
-        //     async function postLeader() {
-        //         try {
-        //             let nPlayer = await axios.post("https://q-night.herokuapp.com/leaderBoard", {
-        //             name: props.name,
-        //             score: props.score
-        //         });
-        //         console.log(nPlayer)
-        //     } 
-        //     catch(err) {
-        //         console.error(err);
-        //     }
-        // }
-
-        // //     setLeaders(prevLeaders => {
-        // //         return [...prevLeaders, newPlayer]
-        // //     })
-            
-        // }
-    
         getLeaders();
     },[props.gameFinished]);
     

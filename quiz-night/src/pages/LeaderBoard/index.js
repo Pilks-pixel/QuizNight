@@ -8,7 +8,7 @@ function LeaderBoard(props) {
 
     const handleClick = () => {
         props.setPlayer({name:"", score:0 })
-        props.setGameFinished(prevGame => !prevGame)
+        props.setGameFinished(false)
         navigate(-1)
 
   };  

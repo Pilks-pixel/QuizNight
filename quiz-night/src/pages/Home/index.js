@@ -2,6 +2,8 @@ import React from "react";
 import { Questions, AnswerButtons } from "../../components";
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+const axios = require('axios');
+
 
 
 function Home(props) {
@@ -36,7 +38,7 @@ function Home(props) {
 
   // Loads 10 questions array from open trivia API when page loads
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=10&url3986')
+    fetch('https://opentdb.com/api.php?amount=3&url3986')
     .then(response => response.json())
     .then(data => setQuizData(data.results));
   },[]);
@@ -63,6 +65,28 @@ function Home(props) {
         
     }
   } 
+
+  useEffect(() => {
+    if (props.gameFinished) {
+      async function highS() {
+          try {
+              let resp = await axios.post("https://q-night.herokuapp.com/leaderBoard", {
+              name: props.player.name,
+              score: props.player.score
+          });
+          console.log(resp.data)
+          console.log(resp)
+          
+          }   
+          catch(err) {
+              console.error(err);
+      }
+   }
+   highS();
+  }
+
+  }, [props.gameFinished])
+  
 
   
   
