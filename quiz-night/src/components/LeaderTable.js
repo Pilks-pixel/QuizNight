@@ -1,28 +1,58 @@
 import { React, useState, useEffect } from "react";
+const axios = require('axios');
+
 
 
 export default function LeaderTable(props) {
 
-    const [leaders, setLeaders] = useState([{ playerName: 'Rambo', playerScore: 5 }, { playerName: 'Pikachu', playerScore: 6 }, { playerName: 'Woody', playerScore: 3 }]);
-    const newPlayer = props.player;
+    const [leaders, setLeaders] = useState([]);
+    // const newPlayer = props.player;
 
 
     
     
     useEffect(() => {
-        if (props.gameFinished) {
-            setLeaders(prevLeaders => {
-                return [...prevLeaders, newPlayer]
-            })
-            
+        async function getLeaders() {
+            try {
+                
+                let {data} = await axios.get("https://q-night.herokuapp.com/leaderBoard");
+                console.log(data);
+                setLeaders(data);
+                console.log(leaders);
+
+            }
+            catch (err) {
+                console.error(err);
+            }
         }
-        
-    },[newPlayer,props.gameFinished]);
+
+        // if (props.gameFinished) {
+        //     async function postLeader() {
+        //         try {
+        //             let nPlayer = await axios.post("https://q-night.herokuapp.com/leaderBoard", {
+        //             name: props.name,
+        //             score: props.score
+        //         });
+        //         console.log(nPlayer)
+        //     } 
+        //     catch(err) {
+        //         console.error(err);
+        //     }
+        // }
+
+        // //     setLeaders(prevLeaders => {
+        // //         return [...prevLeaders, newPlayer]
+        // //     })
+            
+        // }
+    
+        getLeaders();
+    },[props.gameFinished]);
     
    
-    leaders.sort(function(a,b) { return b.playerScore - a.playerScore });
+    leaders.sort(function(a,b) { return b.score - a.score });
 
-    const leaderElements = leaders.map(play => <h3>{play.playerName} {play.playerScore}</h3>);
+    const leaderElements = leaders.map(play => <h3>{play.name} {play.score}</h3>);
     
 
     return (

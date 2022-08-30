@@ -16,6 +16,8 @@ function Home(props) {
   console.log(quizData[questionNum]);
 
 
+
+
   
 // Toggle function which conditionally renders the start of the quiz
   function handleClick() {
@@ -47,7 +49,7 @@ function Home(props) {
         props.setGameFinished(true)
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setDisable(true)
-        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer,playerScore: prevPlayer.playerScore + 1})) : 
+        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, score: prevPlayer.score + 1})) : 
         props.player.playerScore
 
 
@@ -56,13 +58,12 @@ function Home(props) {
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
         setTimeout(() => {setAnswerSelected(false)}, 400)
-        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, playerScore: prevPlayer.playerScore + 1  })) :
+        return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, score: prevPlayer.score + 1  })) :
         props.player.playerScore
         
     }
   } 
 
-  // console.log(props.player)
   
   
     return(
@@ -77,8 +78,8 @@ function Home(props) {
             type="text"
             placeholder="Enter Player Name"
             onChange={handleChange}
-            name="playerName"
-            value={props.player.playerName}
+            name="name"
+            value={props.player.name}
           />
         </form>
         <button onClick={handleClick}>Start</button>
@@ -98,7 +99,7 @@ function Home(props) {
       </>
       }
       <br></br>
-      {showQuestion && `${props.player.playerName}'s Score: ${props.player.playerScore}`}
+      {showQuestion && `${props.player.name}'s Score: ${props.player.score}`}
       <br></br>
       {props.gameFinished && <Link to="/leaderBoard">Go to Scores</Link> }
 
