@@ -2,8 +2,26 @@
   text-align: center;
 }
 
+body {
+  /* image from https://www.svgbackgrounds.com/ */
+background-color: #ffffff;
+background-image: url("./assets/wintery-sunburst.svg");
+background-attachment: fixed;
+background-size: cover;
+}
+
+.headings {
+  font-family: 'Vampiro One', cursive;
+}
+
+.quiz-info {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
 button {
-  background-color: #f5f5f5
+  background-color: #f5f5f5;
+  font-family: 'Aboreto', cursive;
+
 }
 
 .correct {

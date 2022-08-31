@@ -27,7 +27,7 @@ export default function LeaderTable(props) {
 
     leaders.sort(function (a, b) { return b.score - a.score });
 
-    const leaderElements = leaders.map(play => <h3 key={play.id}>{play.name} {play.score}</h3>);
+    const leaderElements = leaders.map(play => <h3 className="quiz-info" key={play.id}>{play.name} {play.score}</h3>);
 
 
     return (

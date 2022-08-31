@@ -56,7 +56,6 @@ function Home(props) {
 
 
     } else {
-        // btnDisable.current.disabled = true
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
         setTimeout(() => {setAnswerSelected(false)}, 400)
@@ -122,9 +121,9 @@ function Home(props) {
       </>
       }
       <br></br>
-      {showQuestion && `${props.player.name}'s Score: ${props.player.score}`}
+      {showQuestion && <h4 className="quiz-info">{props.player.name}'s Score: {props.player.score}</h4>}
       <br></br>
-      {props.gameFinished && <Link to="/leaderBoard">Go to Scores</Link> }
+      {props.gameFinished && <Link className="quiz-info" to="/leaderBoard">Go to Scores</Link> }
 
 
     </div>

@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <header>
-      <h1>Quiz Night</h1>
+      <h1 className="headings" >Quiz Night</h1>
 
       </header>
 
