@@ -11,12 +11,10 @@ export default function LeaderTable(props) {
     useEffect(() => {
         async function getLeaders() {
             try {
-                
-                let {data} = await axios.get("https://q-night.herokuapp.com/leaderBoard");
+                let { data } = await axios.get("https://q-night.herokuapp.com/leaderBoard");
                 console.log(data);
                 setLeaders(data);
                 console.log(leaders);
-
             }
             catch (err) {
                 console.error(err);
@@ -24,13 +22,13 @@ export default function LeaderTable(props) {
         }
 
         getLeaders();
-    },[props.gameFinished]);
-    
-   
-    leaders.sort(function(a,b) { return b.score - a.score });
+    }, [props.gameFinished]);
 
-    const leaderElements = leaders.map(play => <h3>{play.name} {play.score}</h3>);
-    
+
+    leaders.sort(function (a, b) { return b.score - a.score });
+
+    const leaderElements = leaders.map(play => <h3 key={play.id}>{play.name} {play.score}</h3>);
+
 
     return (
         <>
