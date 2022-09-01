@@ -33,3 +33,18 @@ button {
   background-color: rgb(206, 58, 58);
 
 }
+
+.quiz {
+  display: flex;
+  /* flex-direction: column;
+  justify-content: space-evenly;
+  align-content:center; */
+}
+
+.home {
+  background-color: #fff;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; */
+
+}
