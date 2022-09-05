@@ -40,8 +40,8 @@ export default function AnswerButtons(props) {
 
 
     return (
-        <>
+        <div className="answer-btns">
             {answerBtnElements}
-        </>
+        </div>
     )
 }

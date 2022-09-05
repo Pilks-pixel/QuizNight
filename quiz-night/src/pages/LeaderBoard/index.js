@@ -16,8 +16,8 @@ function LeaderBoard(props) {
     
     
     return(
-        <div className="LeaderBoard">
-            <h2>High Scores!</h2>
+        <div className="leader-board">
+            <h2 className="quiz-info">High Scores!</h2>
 
             <LeaderTable 
             gameFinished={props.gameFinished}

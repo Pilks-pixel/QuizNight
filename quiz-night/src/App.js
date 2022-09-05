@@ -18,26 +18,27 @@ function App() {
   return (
     <div className="App">
       <header>
-      <h1>Quiz Night</h1>
+      <h1 className="headings" >Quiz Night</h1>
 
       </header>
 
-      <Routes>
-        <Route path="/" element={<Home 
-        player={playerData}
-        setPlayer={setPlayerData}  
-        gameFinished={gameEnded}
-        setGameFinished={setGameEnded}
-        />}/>
-        <Route path="leaderBoard" element={<LeaderBoard 
-        player={playerData}
-        setPlayer={setPlayerData}  
-        gameFinished={gameEnded}
-        setGameFinished={setGameEnded}
+      <div className="app-container" > 
+        <Routes>
+          <Route path="/" element={<Home 
+          player={playerData}
+          setPlayer={setPlayerData}  
+          gameFinished={gameEnded}
+          setGameFinished={setGameEnded}
+          />}/>
+          <Route path="leaderBoard" element={<LeaderBoard 
+          player={playerData}
+          setPlayer={setPlayerData}  
+          gameFinished={gameEnded}
+          setGameFinished={setGameEnded}
 
-        />}/>
-      </Routes>
-      
+          />}/>
+        </Routes>
+      </div>
 
     </div>
   );

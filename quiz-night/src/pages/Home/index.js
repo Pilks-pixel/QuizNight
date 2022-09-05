@@ -38,7 +38,7 @@ function Home(props) {
 
   // Loads 10 questions array from open trivia API when page loads
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=10&url3986')
+    fetch('https://opentdb.com/api.php?amount=6&url3986')
     .then(response => response.json())
     .then(data => setQuizData(data.results));
   },[]);
@@ -56,7 +56,6 @@ function Home(props) {
 
 
     } else {
-        // btnDisable.current.disabled = true
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
         setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
         setTimeout(() => {setAnswerSelected(false)}, 400)
@@ -66,6 +65,7 @@ function Home(props) {
     }
   } 
 
+  // If gameFinshed is true, posts player to database
   useEffect(() => {
     if (props.gameFinished) {
       async function highS() {
@@ -90,44 +90,47 @@ function Home(props) {
   
   
     return(
-        <div className="Home">
+        <div className="home">
+          <div className="quiz">
+            { !showQuestion &&
+            <>
+              <h3 className="quiz-info">Welcome to Quiz Night, you will face {quizData.length} questions</h3>
+              <form>
+                <input 
+                  type="text"
+                  placeholder="Enter Player Name"
+                  onChange={handleChange}
+                  name="name"
+                  value={props.player.name}
+                />
+              </form>
+              <br></br>
 
-      { !showQuestion &&
-      <>
-        <h3>Welcome to Quiz Night, you will face 10 questions</h3>
-        <p>Enter Player Name</p>
-        <form>
-          <input 
-            type="text"
-            placeholder="Enter Player Name"
-            onChange={handleChange}
-            name="name"
-            value={props.player.name}
-          />
-        </form>
-        <button onClick={handleClick}>Start</button>
-      </>
-      }
+              <button onClick={handleClick}>Start</button>
+            </>
+            }
 
-      { showQuestion && 
-      <>
-        <Questions question={quizData[questionNum]}/>
-        <AnswerButtons 
-        question={quizData[questionNum]} 
-        qNumber={questionNum} 
-        newQuestion={answerClick} 
-        btnOff={disable}
-        selected={answerSelected}
-        />
-      </>
-      }
-      <br></br>
-      {showQuestion && `${props.player.name}'s Score: ${props.player.score}`}
-      <br></br>
-      {props.gameFinished && <Link to="/leaderBoard">Go to Scores</Link> }
+            { showQuestion && 
+            <>
+              <h3>Question {questionNum + 1}</h3>
+              <Questions question={quizData[questionNum]}/>
+              <AnswerButtons 
+              question={quizData[questionNum]} 
+              qNumber={questionNum} 
+              newQuestion={answerClick} 
+              btnOff={disable}
+              selected={answerSelected}
+              />
+            <br></br>
+              <h4 className="quiz-info">{props.player.name}'s Score: {props.player.score} / {quizData.length}</h4>
+            </>
+            }
 
+            <br></br>
+            {props.gameFinished && <Link className="quiz-info" to="/leaderBoard">Go to Scores</Link> }
 
-    </div>
+          </div>
+        </div>
     );
 }
 

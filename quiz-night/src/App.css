@@ -2,16 +2,99 @@
   text-align: center;
 }
 
+body {
+  /* image from https://www.svgbackgrounds.com/ */
+background-color: #ffffff;
+background-image: url("./assets/wintery-sunburst.svg");
+background-attachment: fixed;
+background-size: cover;
+}
+
+.headings {
+  font-family: 'Vampiro One', cursive;
+}
+
+.quiz-info {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+a {
+  cursor: pointer;
+  border-radius: 0.75em;
+  padding: 1.25em 2em;
+  border: 2px solid #333333; 
+  box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition-duration: 0.3s;
+  font-family: 'Aboreto', cursive;
+  color: #00EEFF;
+}
+
+a:hover {
+  border: 2px solid #00EEFF; 
+}
+
 button {
-  background-color: #f5f5f5
+  background-color: #f5f5f5;
+  font-family: 'Aboreto', cursive;
+  cursor: pointer;
+  border-radius: 0.75em;
+  padding: 1.25em 2em;
+  border: 2px solid #333333; 
+  box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition-duration: 0.3s;
+}
+
+button:hover {
+  border: 2px solid #00EEFF; 
 }
 
 .correct {
   background-color: rgb(53, 212, 53);
-
 }
 
 .incorrect {
   background-color: rgb(206, 58, 58);
+}
 
+.quiz {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.home, .leaders {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
+  box-shadow: 0px 20px 10px rgba(0, 0, 0, 0.3);
+  border-top: 2px solid rgba(225,225,225, 0.2);
+  border-left: 1px solid rgba(225,225,225, 0.1);
+  border-right: 1px solid rgba(225,225,225, 0.3);
+  /* width: auto; */
+  max-width: 75%;
+  max-height: 50%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  border: 2px solid #333333;
+  background-color: f5f5f5;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  line-height: 3em;
+  box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.answer-btns{
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
 }

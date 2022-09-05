@@ -14,8 +14,7 @@ export default function Questions(props) {
     
     return(
         <>
-
-            <h3>{decodeHTML(props.question.question)}</h3>
+            <h3 className="quiz-info">{decodeHTML(props.question.question)}</h3>
         </>
     )
 };
