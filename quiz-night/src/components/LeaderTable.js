@@ -31,8 +31,8 @@ export default function LeaderTable(props) {
 
 
     return (
-        <>
+        <div className="leaders">
             {leaderElements}
-        </>
+        </div>
     )
 }

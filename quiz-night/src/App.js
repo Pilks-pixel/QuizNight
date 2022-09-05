@@ -22,22 +22,23 @@ function App() {
 
       </header>
 
-      <Routes>
-        <Route path="/" element={<Home 
-        player={playerData}
-        setPlayer={setPlayerData}  
-        gameFinished={gameEnded}
-        setGameFinished={setGameEnded}
-        />}/>
-        <Route path="leaderBoard" element={<LeaderBoard 
-        player={playerData}
-        setPlayer={setPlayerData}  
-        gameFinished={gameEnded}
-        setGameFinished={setGameEnded}
+      <div className="app-container" > 
+        <Routes>
+          <Route path="/" element={<Home 
+          player={playerData}
+          setPlayer={setPlayerData}  
+          gameFinished={gameEnded}
+          setGameFinished={setGameEnded}
+          />}/>
+          <Route path="leaderBoard" element={<LeaderBoard 
+          player={playerData}
+          setPlayer={setPlayerData}  
+          gameFinished={gameEnded}
+          setGameFinished={setGameEnded}
 
-        />}/>
-      </Routes>
-      
+          />}/>
+        </Routes>
+      </div>
 
     </div>
   );

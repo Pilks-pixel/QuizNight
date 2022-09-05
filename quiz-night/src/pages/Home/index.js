@@ -104,6 +104,8 @@ function Home(props) {
                   value={props.player.name}
                 />
               </form>
+              <br></br>
+
               <button onClick={handleClick}>Start</button>
             </>
             }
