@@ -12,10 +12,12 @@ background-size: cover;
 
 .headings {
   font-family: 'Vampiro One', cursive;
+  font-size: 5rem;
 }
 
 .quiz-info {
   font-family: 'M PLUS Rounded 1c', sans-serif;
+  /* font-size: 3rem; */
 }
 
 a {
@@ -54,6 +56,10 @@ button:hover {
 
 .incorrect {
   background-color: rgb(206, 58, 58);
+}
+
+#new-game {
+  margin: 15px;
 }
 
 .quiz {

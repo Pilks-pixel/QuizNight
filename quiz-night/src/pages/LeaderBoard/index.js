@@ -17,16 +17,23 @@ function LeaderBoard(props) {
     
     return(
         <div className="leader-board">
-            <h2 className="quiz-info">High Scores!</h2>
-
+            <h1 className="quiz-info">High Scores!</h1>
+        
+            {<LeaderTable gameFinished={props.gameFinished}
+            setGameFinished={props.setGameFinished}
+            player={props.player}
+            setPlayer={props.setPlayer}/> 
+            ?
             <LeaderTable 
             gameFinished={props.gameFinished}
             setGameFinished={props.setGameFinished}
             player={props.player}
             setPlayer={props.setPlayer}
-            />
+            /> 
+            : <h1>Loading ...</h1>}
             
-            <button onClick={handleClick}>New Game</button>
+            
+            <button id="new-game" onClick={handleClick}>New Game</button>
 
         </div>
     );
