@@ -24,7 +24,9 @@ function Home(props) {
 // Toggle function which conditionally renders the start of the quiz
   function handleClick() {
     return setShowQuestion(prevShowQuestion => !prevShowQuestion)
+
   }
+
 
 //   Function for controlled form to input playerName into player object
   function handleChange(event) {
@@ -33,8 +35,10 @@ function Home(props) {
       return {
         ...prevPlayer,
         [name]: value}
+        
     })
   };
+
 
   // Loads 10 questions array from open trivia API when page loads
   useEffect(() => {
@@ -88,7 +92,6 @@ function Home(props) {
   
 
   
-  
     return(
         <div className="home">
           <div className="quiz">
@@ -105,8 +108,8 @@ function Home(props) {
                 />
               </form>
               <br></br>
-
-              <button onClick={handleClick}>Start</button>
+              
+              <button disabled={!props.player.name} onClick={handleClick}>Start</button>
             </>
             }
 
