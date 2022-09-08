@@ -1,6 +1,7 @@
 # Quiz Night
 
-![quiz-night screenshot](./src/assets/quiz-night.png)
+<!-- ![quiz-night screenshot]() -->
+<img align="center" scr="./src/assets/quiz-night.png" width="350px" hieght="350px" alt="screenshot of app">
 
 
 ### Deployment 
