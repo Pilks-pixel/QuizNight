@@ -3,7 +3,7 @@
 ![quiz-night screenshot](./src/assets/quiz-night.png)
 
 
-### Deployment 
+## Deployment 
 
 :rocket: **Deployed** with Netlify at [quiz-night](https://pete-quiz-night.netlify.app)
 
