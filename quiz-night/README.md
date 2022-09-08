@@ -1,11 +1,11 @@
 # Quiz Night
 
-![quiz-night screenshot](.src/assets/quiz-night.png)
+![quiz-night screenshot](./quiz-night/src/assets/quiz-night.png)
 
 
 ### Deployment 
 
-:rocket: **Deployed** with Netlify at [quiz-night link ](https://pete-quiz-night.netlify.app)
+:rocket: **Deployed** with Netlify at [quiz-night](https://pete-quiz-night.netlify.app)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/afad5a6c-6af2-48a7-be8f-e60a2b06708f/deploy-status)](https://app.netlify.com/sites/pete-quiz-night/deploys)
 
