@@ -1,6 +1,6 @@
 # Quiz Night
 
-![quiz-night screenshot](./quiz-night/src/assets/quiz-night.png)
+![quiz-night screenshot](./src/assets/quiz-night.png)
 
 
 ### Deployment 
