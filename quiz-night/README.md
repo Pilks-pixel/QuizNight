@@ -1,20 +1,20 @@
 # Quiz Night
 
-![quiz-night screenshot] (.src/assets/quiz-night.png)
+![quiz-night screenshot](.src/assets/quiz-night.png)
 
 
 ### Deployment 
 
-:rocket: **Deployed** with Netlify [![Netlify Status](https://api.netlify.com/api/v1/badges/afad5a6c-6af2-48a7-be8f-e60a2b06708f/deploy-status)](https://app.netlify.com/sites/pete-quiz-night/deploys)
+:rocket: **Deployed** with Netlify at [quiz-night link ](https://pete-quiz-night.netlify.app)
 
-[quiz-night link ] (https://pete-quiz-night.netlify.app)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/afad5a6c-6af2-48a7-be8f-e60a2b06708f/deploy-status)](https://app.netlify.com/sites/pete-quiz-night/deploys)
 
 
 ## About
 
-Quiz game with leaderboard, built with React that makes use of React Router v6 & MongoDB to persist leaderboard data.
+Quiz game with leaderboard, built with React that makes use of **React Router v6** & **MongoDB** to persist leaderboard data.
 
-Backend is built in Node.js and deployed with Heroku. 
+Backend is built in **Node.js** and deployed with Heroku. 
 
 [quiz-night-backend](https://github.com/Pilks-pixel/QuizNightBackend)
 
@@ -32,9 +32,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 -[x] Made use of **useState** / **useEffect** hooks  and props to manage individual states of players and scores across components
 
--[x] Leaderboard implimented with MongoDB allowing data to persist between games.
+-[x] Leaderboard implimented with **MongoDB** allowing data to persist between games.
 
--[x] Made use of flexbox & backdrop-filter, giving the quiz a unique glass background card.
+-[x] Made use of **flexbox** & backdrop-filter, giving the quiz a unique glass background card.
 
 ## Future features
 
