@@ -1,5 +1,5 @@
 import React from "react";
-import { Questions, AnswerButtons } from "../../components";
+import { Questions, AnswerButtons, Settings} from "../../components";
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 const axios = require('axios');
@@ -40,7 +40,7 @@ function Home(props) {
   };
 
 
-  // Loads 10 questions array from open trivia API when page loads
+  // Loads questions array from open trivia API when page loads
   useEffect(() => {
     fetch('https://opentdb.com/api.php?amount=6&url3986')
     .then(response => response.json())
@@ -101,7 +101,7 @@ function Home(props) {
               <form>
                 <input 
                   type="text"
-                  placeholder="Enter Player Name"
+                  placeholder="Enter Player Name..."
                   onChange={handleChange}
                   name="name"
                   value={props.player.name}
@@ -110,6 +110,7 @@ function Home(props) {
               <br></br>
               
               <button disabled={!props.player.name} onClick={handleClick}>Start</button>
+              <Settings />
             </>
             }
 
