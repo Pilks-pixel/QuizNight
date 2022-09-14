@@ -23,9 +23,9 @@ export default function Settings(props) {
 
     }, [setOptions]);
 
-    // const categories = options.map(o => {
-    //     return <option key={o.id} value={`&category=${o.id}`}>{o.name}</option>
-    // })
+    const categories = options.map(o => {
+        return <option key={o.id} value={`&category=${o.id}`}>{o.name}</option>
+    })
 
     // Handles form select changes
     const handleCategoryChange = (e) => {
@@ -47,8 +47,7 @@ export default function Settings(props) {
         <form onSubmit={handleSubmit} className='settings-tab'>
             <select value={preferences.category} onChange={handleCategoryChange} name='category'>
                 <option value=''>All Categories</option>
-                {/* {categories} */}
-                {options.map(o => <option key={o.id} value={`&category=${o.id}`}>{o.name}</option>)}
+                {categories}
             </select>
             <select value={preferences.difficulty} onChange={handleCategoryChange} name='difficulty'>
                 <option value=''>Any Difficulty</option>
