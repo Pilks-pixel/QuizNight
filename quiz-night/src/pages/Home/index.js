@@ -2,6 +2,7 @@ import React from "react";
 import { Questions, AnswerButtons, Settings} from "../../components";
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import logo from '../../assets/settings.png';
 const axios = require('axios');
 
 
@@ -9,10 +10,12 @@ const axios = require('axios');
 function Home(props) {
     
   const [showQuestion, setShowQuestion] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [quizData, setQuizData] = useState([]);
   const [questionNum, setQuestionNum] = useState(0);
   const [answerSelected, setAnswerSelected ] = useState(false);
   const [disable, setDisable] = useState(false);
+  const [quizUrl, setQuizUrl] = useState('https://opentdb.com/api.php?amount=6&url3986');
 
   console.log(quizData);
   console.log(quizData[questionNum]);
@@ -24,6 +27,12 @@ function Home(props) {
 // Toggle function which conditionally renders the start of the quiz
   function handleClick() {
     return setShowQuestion(prevShowQuestion => !prevShowQuestion)
+
+  }
+
+  // Toggle function which conditionally renders Settings component
+  function handleSettings() {
+    return setShowSettings(prevShowSettings => !prevShowSettings)
 
   }
 
@@ -42,10 +51,10 @@ function Home(props) {
 
   // Loads questions array from open trivia API when page loads
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=6&url3986')
+    fetch(quizUrl)
     .then(response => response.json())
     .then(data => setQuizData(data.results));
-  },[]);
+  },[quizUrl]);
 
   
   // OnClick function for Quiz Answers, controls score, questionNumber and answerSelected states
@@ -61,8 +70,8 @@ function Home(props) {
 
     } else {
         setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
-        setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 400)
-        setTimeout(() => {setAnswerSelected(false)}, 400)
+        setTimeout(() => {setQuestionNum(prevQuestionNum => prevQuestionNum + 1)}, 500)
+        setTimeout(() => {setAnswerSelected(false)}, 500)
         return a === quizData[questionNum].correct_answer? props.setPlayer(prevPlayer => ({...prevPlayer, score: prevPlayer.score + 1  })) :
         props.player.playerScore
         
@@ -110,7 +119,15 @@ function Home(props) {
               <br></br>
               
               <button disabled={!props.player.name} onClick={handleClick}>Start</button>
-              <Settings />
+
+              <img src={logo} alt='setting' height='40px' width='40px' onClick={handleSettings} />
+
+              { showSettings && <div className='settings-tab'>
+              <Settings 
+              url={quizUrl}
+              setUrl={setQuizUrl}
+              />
+              </div> }
             </>
             }
 
