@@ -5,7 +5,7 @@ const axios = require('axios');
 export default function Settings(props) {
 
     const [options, setOptions] = useState([]);
-    const [preferences, setPreferences] = useState({ category: '', difficulty: '', type: '' });
+    const [preferences, setPreferences] = useState({ category: '', difficulty: ''});
 
     // Call to API for categories
     useEffect(() => {
@@ -23,9 +23,9 @@ export default function Settings(props) {
 
     }, [setOptions]);
 
-    const categories = options.map(o => {
-        return <option key={o.id} value={`&category=${o.id}`}>{o.name}</option>
-    })
+    // const categories = options.map(o => {
+    //     return <option key={o.id} value={`&category=${o.id}`}>{o.name}</option>
+    // })
 
     // Handles form select changes
     const handleCategoryChange = (e) => {
@@ -36,32 +36,28 @@ export default function Settings(props) {
 
     // Function enables API call to be modified acording to user preferences
     const handleSubmit = (e) => {
-        props.setUrl(prevUrl => prevUrl.concat(preferences.category, preferences.difficulty, preferences.type))
+        props.setUrl(prevUrl => prevUrl.concat(preferences.category, preferences.difficulty))
+        props.setSettingToggle(prevSettingToggle => !prevSettingToggle)
         e.preventDefault();
     }
 
     console.log(props.url)
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <select value={preferences.category} onChange={handleCategoryChange} name='category'>
-                    <option value=''>All Categories</option>
-                    {categories}
-                </select>
-                <select value={preferences.difficulty} onChange={handleCategoryChange} name='difficulty'>
-                    <option value=''>Any</option>
-                    <option value={`&difficulty=medium`}>Medium</option>
-                    <option value={`&difficulty=easy`}>Easy</option>
-                    <option value={`&difficulty=hard`}>Hard</option>
-                </select>
-                <select value={preferences.type} onChange={handleCategoryChange} name='type'>
-                    <option value=''>Any</option>
-                    <option value={`&type=boolean`}>True / False</option>
-                    <option value={`&type=multiple`}>Multiple Choice</option>
-                </select>
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
+        <form onSubmit={handleSubmit} className='settings-tab'>
+            <select value={preferences.category} onChange={handleCategoryChange} name='category'>
+                <option value=''>All Categories</option>
+                {/* {categories} */}
+                {options.map(o => <option key={o.id} value={`&category=${o.id}`}>{o.name}</option>)}
+            </select>
+            <select value={preferences.difficulty} onChange={handleCategoryChange} name='difficulty'>
+                <option value=''>Any Difficulty</option>
+                <option value={`&difficulty=easy`}>Easy</option>
+                <option value={`&difficulty=medium`}>Medium</option>
+                <option value={`&difficulty=hard`}>Hard</option>
+            </select>
+            <input type="submit" value="Apply Settings" id='apply-settings' />
+        </form>
+       
     )
 };

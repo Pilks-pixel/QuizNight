@@ -90,13 +90,16 @@ button:hover {
   align-items: center;
 }
 
-input {
+input, select {
   border: 2px solid #333333;
   background-color: f5f5f5;
   border-radius: 5px;
   font-size: 0.8rem;
   line-height: 3em;
   box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-family: 'Aboreto', cursive;
+  cursor: pointer;
+  text-align: center;
 }
 
 .answer-btns{
@@ -104,3 +107,33 @@ input {
   justify-content: space-evenly;
   gap: 10px;
 }
+
+#settings-btn {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#settings-btn:hover {
+  animation: rotate 2s ease 0.3s; 
+}
+
+@keyframes rotate {
+  0%  {transform: rotate(0deg)}
+  100% {transform: rotate(360deg)};
+}
+
+.settings-tab {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+  align-items: stretch;
+  gap: 12px;
+  padding: 5px;
+  width: 300px;
+}
+
+#apply-settings:hover {
+  border: 2px solid #00EEFF;   
+  transition-duration: 0.3s;
+}
+
