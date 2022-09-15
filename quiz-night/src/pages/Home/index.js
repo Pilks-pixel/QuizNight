@@ -1,6 +1,6 @@
 import React from "react";
 import { Questions, AnswerButtons, Settings } from "../../components";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import logo from '../../assets/settings.png';
 const axios = require('axios');
@@ -16,6 +16,7 @@ function Home(props) {
   const [answerSelected, setAnswerSelected] = useState(false);
   const [disable, setDisable] = useState(false);
   const [quizUrl, setQuizUrl] = useState('https://opentdb.com/api.php?amount=6&url3986');
+  const [time, setTime] = useState(5);
 
   console.log(quizData);
   console.log(quizData[questionNum]);
@@ -26,6 +27,7 @@ function Home(props) {
 
   // Toggle function which conditionally renders the start of the quiz
   function handleClick() {
+    setAnswerSelected(false)
     return setShowQuestion(prevShowQuestion => !prevShowQuestion)
 
   }
@@ -58,19 +60,62 @@ function Home(props) {
   }, [quizUrl]);
 
 
+  // useEffect(() => {
+    
+  //   const reduceTime = () => setTime(prevTime => prevTime === 0? prevTime : prevTime - 1) 
+  //   const stopTimer = () => {clearInterval(timer)}
+  //   let timer = setInterval(reduceTime,1000);
+
+    
+  //   return () => stopTimer;
+    
+    
+  // },[questionNum]);
+
+  console.log(time)
+
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
+  useInterval(() => {
+    if (showQuestion && !answerSelected) {
+      return time === 0? (answerClick(), setTime(5)) : setTime(prevTime => prevTime - 1)
+    }
+  },1000);
+
+
+
   // OnClick function for Quiz Answers, controls score, questionNumber and answerSelected states
   function answerClick(a) {
 
     if (questionNum === quizData.length - 1) {
       props.setGameFinished(true)
-      setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
+      setAnswerSelected(true)
       setDisable(true)
       return a === quizData[questionNum].correct_answer ? props.setPlayer(prevPlayer => ({ ...prevPlayer, score: prevPlayer.score + 1 })) :
         props.player.playerScore
 
 
     } else {
-      setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
+      setAnswerSelected(true)
+      setTime(5)
       setTimeout(() => { setQuestionNum(prevQuestionNum => prevQuestionNum + 1) }, 500)
       setTimeout(() => { setAnswerSelected(false) }, 500)
       return a === quizData[questionNum].correct_answer ? props.setPlayer(prevPlayer => ({ ...prevPlayer, score: prevPlayer.score + 1 })) :
@@ -147,6 +192,7 @@ function Home(props) {
               selected={answerSelected}
             />
             <br></br>
+            {!answerSelected && <h2>{time}</h2>}
             <h4 className="quiz-info">{props.player.name}'s Score: {props.player.score} / {quizData.length}</h4>
           </>
         }
