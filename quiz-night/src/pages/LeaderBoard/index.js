@@ -22,15 +22,7 @@ function LeaderBoard(props) {
             {<LeaderTable gameFinished={props.gameFinished}
             setGameFinished={props.setGameFinished}
             player={props.player}
-            setPlayer={props.setPlayer}/> 
-            ?
-            <LeaderTable 
-            gameFinished={props.gameFinished}
-            setGameFinished={props.setGameFinished}
-            player={props.player}
-            setPlayer={props.setPlayer}
-            /> 
-            : <h1>Loading ...</h1>}
+            setPlayer={props.setPlayer}/>}
             
             
             <button id="new-game" onClick={handleClick}>New Game</button>

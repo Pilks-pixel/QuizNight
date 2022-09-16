@@ -6,6 +6,7 @@ const axios = require('axios');
 export default function LeaderTable(props) {
 
     const [leaders, setLeaders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -14,6 +15,7 @@ export default function LeaderTable(props) {
                 let { data } = await axios.get("https://q-night.herokuapp.com/leaderBoard");
                 console.log(data);
                 setLeaders(data);
+                setLoading(false)
                 console.log(leaders);
             }
             catch (err) {
@@ -32,7 +34,7 @@ export default function LeaderTable(props) {
 
     return (
         <div className="leaders">
-            {leaderElements}
+            {loading? <h2>Loading ...</h2> : leaderElements}
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Questions, AnswerButtons, Settings } from "../../components";
+import { Questions, AnswerButtons, Settings, useInterval } from "../../components";
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import logo from '../../assets/settings.png';
@@ -16,6 +16,8 @@ function Home(props) {
   const [answerSelected, setAnswerSelected] = useState(false);
   const [disable, setDisable] = useState(false);
   const [quizUrl, setQuizUrl] = useState('https://opentdb.com/api.php?amount=6&url3986');
+  const [countDown, setCountDown] = useState(10);
+  const [time, setTime] = useState(countDown);
 
   console.log(quizData);
   console.log(quizData[questionNum]);
@@ -26,15 +28,16 @@ function Home(props) {
 
   // Toggle function which conditionally renders the start of the quiz
   function handleClick() {
+    setAnswerSelected(false)
     return setShowQuestion(prevShowQuestion => !prevShowQuestion)
 
-  }
+  };
 
   // Toggle function which conditionally renders Settings component
   function handleSettings() {
     return setShowSettings(prevShowSettings => !prevShowSettings)
 
-  }
+  };
 
 
   //   Function for controlled form to input playerName into player object
@@ -52,10 +55,36 @@ function Home(props) {
 
   // Loads questions array from open trivia API when page loads
   useEffect(() => {
-    fetch(quizUrl)
-      .then(response => response.json())
-      .then(data => setQuizData(data.results));
+    async function getQuizData() {
+      try {
+        const response = await axios.get(quizUrl)
+        console.log(response)
+        setQuizData(response.data.results)
+      } catch (error){
+        console.log(error);
+      }
+    }
+
+    getQuizData();
+
+    // fetch(quizUrl)
+    //   .then(response => response.json())
+    //   .then(data => setQuizData(data.results));
+
   }, [quizUrl]);
+
+
+
+  // console.log(time)
+
+  
+// Question Countdown Custom hook
+  useInterval(() => {
+    if (showQuestion && !answerSelected) {
+      return time === 0? (answerClick(), setTime(countDown)) : setTime(prevTime => prevTime - 1)
+    }
+  },1000);
+
 
 
   // OnClick function for Quiz Answers, controls score, questionNumber and answerSelected states
@@ -63,21 +92,22 @@ function Home(props) {
 
     if (questionNum === quizData.length - 1) {
       props.setGameFinished(true)
-      setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
+      setAnswerSelected(true)
       setDisable(true)
       return a === quizData[questionNum].correct_answer ? props.setPlayer(prevPlayer => ({ ...prevPlayer, score: prevPlayer.score + 1 })) :
-        props.player.playerScore
+        props.player.playerScore;
 
 
     } else {
-      setAnswerSelected(prevAnswerSelected => !prevAnswerSelected)
+      setAnswerSelected(true)
+      setTime(countDown)
       setTimeout(() => { setQuestionNum(prevQuestionNum => prevQuestionNum + 1) }, 500)
       setTimeout(() => { setAnswerSelected(false) }, 500)
       return a === quizData[questionNum].correct_answer ? props.setPlayer(prevPlayer => ({ ...prevPlayer, score: prevPlayer.score + 1 })) :
-        props.player.playerScore
+        props.player.playerScore;
 
     }
-  }
+  };
 
   // If gameFinshed is true, posts player to database
   useEffect(() => {
@@ -98,7 +128,7 @@ function Home(props) {
       highS();
     }
 
-  }, [props.gameFinished])
+  }, [props.gameFinished]);
 
 
 
@@ -147,6 +177,7 @@ function Home(props) {
               selected={answerSelected}
             />
             <br></br>
+            {!answerSelected && <h2>{time}</h2>}
             <h4 className="quiz-info">{props.player.name}'s Score: {props.player.score} / {quizData.length}</h4>
           </>
         }
