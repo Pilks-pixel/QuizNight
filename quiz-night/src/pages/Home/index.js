@@ -76,15 +76,12 @@ function Home(props) {
 
 
 
-
-
   // Question Countdown Custom hook
-  // useInterval(() => {
-  //   if (showQuestion && !answerSelected) {
-  //     return time === 0? (answerClick(), setTime(countDown)) : setTime(prevTime => prevTime - 1)
-  //   }
-  // },1000);
-
+  useInterval(() => {
+    if (showQuestion && !answerSelected) {
+      return time === 0? (answerClick(), setTime(countDown)) : setTime(prevTime => prevTime - 1)
+    }
+  },1000);
 
 
   // OnClick function for Quiz Answers, controls score, questionNumber and answerSelected states
