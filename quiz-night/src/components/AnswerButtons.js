@@ -4,7 +4,7 @@ export default function AnswerButtons(props) {
 
     const [answerOptions, setAnswerOptions] = useState([])
 
-    // decodes the data coming form the API
+    // decodes the data coming from the API
     const decodeHTML = function (html) {
         const txt = document.createElement('textarea')
         txt.innerHTML = html
@@ -23,7 +23,7 @@ export default function AnswerButtons(props) {
         setAnswerOptions(answers)
     }, [props.question])
 
-    console.log(answerOptions)
+    
 
     // Iterates over the answerOptions array and generates a button for each one
     const answerBtnElements = answerOptions.map((a, index) => {
@@ -40,7 +40,7 @@ export default function AnswerButtons(props) {
 
 
     return (
-        <div className="answer-btns">
+        <div className="container-answer-btns">
             {answerBtnElements}
         </div>
     )

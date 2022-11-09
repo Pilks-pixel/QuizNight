@@ -60,7 +60,7 @@ function Home(props) {
         const response = await axios.get(quizUrl)
         console.log(response)
         setQuizData(response.data.results)
-      } catch (error){
+      } catch (error) {
         console.log(error);
       }
     }
@@ -75,15 +75,15 @@ function Home(props) {
 
 
 
-  // console.log(time)
 
-  
-// Question Countdown Custom hook
-  useInterval(() => {
-    if (showQuestion && !answerSelected) {
-      return time === 0? (answerClick(), setTime(countDown)) : setTime(prevTime => prevTime - 1)
-    }
-  },1000);
+
+
+  // Question Countdown Custom hook
+  // useInterval(() => {
+  //   if (showQuestion && !answerSelected) {
+  //     return time === 0? (answerClick(), setTime(countDown)) : setTime(prevTime => prevTime - 1)
+  //   }
+  // },1000);
 
 
 
@@ -155,7 +155,7 @@ function Home(props) {
               <img id='settings-btn' src={logo} alt='setting' height='40px' width='40px' onClick={handleSettings} />
             </div>
 
-            {showSettings && 
+            {showSettings &&
               <Settings
                 url={quizUrl}
                 setUrl={setQuizUrl}
@@ -167,7 +167,7 @@ function Home(props) {
 
         {showQuestion &&
           <>
-            <h3>Question {questionNum + 1}</h3>
+            <h3 className='question-number-heading'>Question {questionNum + 1}</h3>
             <Questions question={quizData[questionNum]} />
             <AnswerButtons
               question={quizData[questionNum]}
@@ -177,7 +177,7 @@ function Home(props) {
               selected={answerSelected}
             />
             <br></br>
-            {!answerSelected && <h2>{time}</h2>}
+            {!answerSelected && <h2 className="time-heading">{time}</h2>}
             <h4 className="quiz-info">{props.player.name}'s Score: {props.player.score} / {quizData.length}</h4>
           </>
         }
