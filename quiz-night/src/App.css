@@ -7,9 +7,11 @@ Typography
   font-size: 12vmin;
 }
 
-.quiz-info {
+.quiz-info,
+.leader-headings {
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
+
 
 /* =============
 Layout
@@ -37,10 +39,13 @@ Layout
   border-left: 1px solid rgba(225,225,225, 0.1);
   border-right: 1px solid rgba(225,225,225, 0.3);
   /* width: 600px; */
+  padding: 1em;
+  margin: 10px auto;
+}
+
+.home {
   max-width: 50%;
   max-height: 50%;
-  padding: 10px;
-  margin: 10px;
 }
 
 .app-container {
@@ -56,7 +61,25 @@ Layout
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   padding: .5em 1em .5em 1em;
   width: 90%;
-  margin: 0;
+  margin: 0 auto;
+}
+
+/* leaderboard layout */
+
+.container-score {
+  border-bottom: 1px solid rgb(225,225,225);
+  margin-bottom: .5em;
+  padding: .5em;
+  width: 100%;
+}
+
+.leader-headings {
+  margin: 0 auto;
+}
+
+.leader-score {
+  display: block;
+  font-size: 1.5rem;
 }
 
 /* ============
@@ -167,13 +190,38 @@ input, select {
     font-size: 1rem;
   }
 
+  .question-number-heading {
+    font-size: .8rem;
+    padding: 0;
+    margin-bottom: 0;
+    border: solid green;
+  }
+
   .time-heading {
     margin: .5em;
     margin-top: 0;
   }
 
-  .home {
+  .home .leaders {
     max-width: 90%;
   }
 
+}
+
+@media (max-width: 340px) {
+
+  .time-heading,
+  .quiz-info,
+  .container-answer-btns button {
+    font-size: .8rem;
+  }
+
+  .home {
+    max-width: 100%;
+  }
+
+  .container-answer-btns {
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+  }
 }
