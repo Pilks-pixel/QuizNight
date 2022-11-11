@@ -180,7 +180,7 @@ function Home(props) {
         }
 
         <br></br>
-        {props.gameFinished && <Link className="quiz-info" to="/leaderBoard">Go to Scores</Link>}
+        {props.gameFinished && <Link className="btn-go-scores" to="/leaderBoard">Go to Scores</Link>}
 
       </div>
     </div>
