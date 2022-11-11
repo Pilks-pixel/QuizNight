@@ -31,7 +31,7 @@ export default function LeaderTable(props) {
 
     const leaderElements = leaders.map(play => {
         return (
-            <div className="container-score">
+            <div className="leader-container-score">
             <h3 className="leader-headings" key={play.id}>{play.name}</h3> 
             <span className="leader-score">{play.score}</span>
             </div>
