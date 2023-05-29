@@ -52,6 +52,11 @@ Layout
 .home {
   max-width: 50%;
   max-height: 50%;
+  /* position: relative; */
+}
+
+.quiz-info {
+  max-width: min(90%, 400px);
 }
 
 .app-container {
@@ -69,6 +74,7 @@ Layout
   width: 90%;
   margin: 0 auto;
 }
+
 
 /* leaderboard layout */
 

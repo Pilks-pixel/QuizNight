@@ -4,10 +4,12 @@ import {
 	AnswerButtons,
 	Settings,
 	useInterval,
+	useWindowSize,
 } from "../../components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/settings.png";
+import Confetti from "react-confetti";
 const axios = require("axios");
 
 function Home(props) {
@@ -22,10 +24,8 @@ function Home(props) {
 	);
 	const [countDown, setCountDown] = useState(10);
 	const [time, setTime] = useState(countDown);
-  const points = {'easy':5, 'medium':10, 'hard': 15}
-  // console.table(quizData)
-  console.log({points})
-  
+	const { width, height } = useWindowSize();
+	const points = { easy: 5, medium: 10, hard: 15 };
 
 	//Quiz Start & Settings handlers
 	function handleStartQuiz() {
@@ -50,14 +50,14 @@ function Home(props) {
 	//  Questions array from open trivia API on page load
 	useEffect(() => {
 		async function getQuizData() {
-      try {
-        const response = await axios.get(quizUrl);
+			try {
+				const response = await axios.get(quizUrl);
 				setQuizData(response.data.results);
 			} catch (error) {
-        console.log(`Failed to fetch questions : ${error}`);
+				console.log(`Failed to fetch questions : ${error}`);
 			}
 		}
-    
+
 		getQuizData();
 	}, [quizUrl]);
 
@@ -70,38 +70,35 @@ function Home(props) {
 		}
 	}, 1000);
 
-
-
 	// handler for score, questionNumber and answerSelected states
 	function answerClick(a) {
 		const lastQuestion = questionNum === quizData.length - 1;
-    const currentQuestion = quizData[questionNum];
+		const currentQuestion = quizData[questionNum];
 		setAnswerSelected(true);
 
 		if (lastQuestion) {
 			props.setGameFinished(true);
 			setDisable(true);
-
 		} else {
 			setTime(countDown);
 			setTimeout(() => {
 				setQuestionNum(prevQuestionNum => prevQuestionNum + 1);
 				setAnswerSelected(false);
 			}, 500);
+		}
 
-    }
-
-    return a === currentQuestion.correct_answer
-      ? props.setPlayer(prevPlayer => ({
-          ...prevPlayer,
-          score: prevPlayer.score + points[currentQuestion.difficulty],
-        }))
-      : props.player.playerScore;
-  }
+		return a === currentQuestion.correct_answer
+			? props.setPlayer(prevPlayer => ({
+					...prevPlayer,
+					score: prevPlayer.score + points[currentQuestion.difficulty],
+			  }))
+			: props.player.playerScore;
+	}
 
 	// Post player to database on gameFinished
 	useEffect(() => {
-		if (props.gameFinished) {
+		if (props.gameFinished && props.player.score >= 25) {
+			console.log("high scores!");
 			async function highS() {
 				try {
 					let resp = await axios.post(
@@ -118,82 +115,96 @@ function Home(props) {
 				}
 			}
 			highS();
+		} else if (props.gameFinished) {
+			console.log("Keep practicing!");
 		}
 	}, [props.gameFinished]);
 
 	return (
-		<div className='home'>
-			<div className='quiz'>
-				{!showQuestion && (
-					<>
-						<h3 className='quiz-info'>
-							Welcome to Quiz Night, you will face {quizData.length} questions
-						</h3>
-						<form>
-							<input
-								type='text'
-								placeholder='Enter Player Name...'
-								onChange={handleQuizInfoChange}
-								name='name'
-								value={props.player.name}
+		<>
+			<div className='home'>
+				<div className='quiz'>
+					{!showQuestion && (
+						<>
+							<h3 className='quiz-info'>
+								Welcome to Quiz Night, you will face {quizData.length} questions
+							</h3>
+							<h4 className='quiz-info'>
+								Points are based on difficulty, are you ready to go for the top
+								score!
+							</h4>
+							<form>
+								<input
+									type='text'
+									placeholder='Enter Player Name...'
+									onChange={handleQuizInfoChange}
+									name='name'
+									value={props.player.name}
+								/>
+							</form>
+							<br></br>
+
+							<button disabled={!props.player.name} onClick={handleStartQuiz}>
+								Start
+							</button>
+
+							<div>
+								<img
+									id='settings-btn'
+									src={logo}
+									alt='setting'
+									height='40px'
+									width='40px'
+									onClick={settingsToggle}
+								/>
+							</div>
+
+							{showSettings && (
+								<Settings
+									url={quizUrl}
+									setUrl={setQuizUrl}
+									setSettingToggle={setShowSettings}
+								/>
+							)}
+						</>
+					)}
+
+					{showQuestion && (
+						<>
+							<h3 className='question-number-heading'>
+								Question {questionNum + 1}
+							</h3>
+							<Questions question={quizData[questionNum]} />
+							<AnswerButtons
+								question={quizData[questionNum]}
+								qNumber={questionNum}
+								newQuestion={answerClick}
+								btnOff={disable}
+								selected={answerSelected}
 							/>
-						</form>
-						<br></br>
+							<br></br>
+							{!answerSelected && <h2 className='time-heading'>{time}</h2>}
+							<h4 className='quiz-info'>
+								{props.player.name}'s Score: {props.player.score} points
+							</h4>
+						</>
+					)}
 
-						<button disabled={!props.player.name} onClick={handleStartQuiz}>
-							Start
-						</button>
-
-						<div>
-							<img
-								id='settings-btn'
-								src={logo}
-								alt='setting'
-								height='40px'
-								width='40px'
-								onClick={settingsToggle}
-							/>
-						</div>
-
-						{showSettings && (
-							<Settings
-								url={quizUrl}
-								setUrl={setQuizUrl}
-								setSettingToggle={setShowSettings}
-							/>
-						)}
-					</>
-				)}
-
-				{showQuestion && (
-					<>
-						<h3 className='question-number-heading'>
-							Question {questionNum + 1}
-						</h3>
-						<Questions question={quizData[questionNum]} />
-						<AnswerButtons
-							question={quizData[questionNum]}
-							qNumber={questionNum}
-							newQuestion={answerClick}
-							btnOff={disable}
-							selected={answerSelected}
-						/>
-						<br></br>
-						{!answerSelected && <h2 className='time-heading'>{time}</h2>}
-						<h4 className='quiz-info'>
-							{props.player.name}'s Score: {props.player.score} points
-						</h4>
-					</>
-				)}
-
-				<br></br>
-				{props.gameFinished && (
-					<Link className='btn-go-scores' to='/leaderBoard'>
-						Go to Scores
-					</Link>
-				)}
+					<br></br>
+					{props.gameFinished && 
+						<Link className='btn-go-scores' to='/leaderBoard'>
+							Go to Scores
+						</Link>
+					}
+				</div>
 			</div>
-		</div>
+			{props.gameFinished && ( props.player.score >= 25 && <Confetti
+				className='confetti'
+				width={width}
+				height={height}
+				recycle={false}
+			/>)}
+		</>
 	);
 }
 
