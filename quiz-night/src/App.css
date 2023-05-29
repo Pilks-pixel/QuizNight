@@ -112,8 +112,7 @@ a {
   color: #00EEFF;
 }
 
-a:hover,
-a:focus {
+a:hover {
   border: 2px solid #00EEFF; 
 }
 
@@ -128,8 +127,7 @@ button {
   /* text-align: center; */
 }
 
-button:hover,
-button:focus {
+button:hover {
   border: 2px solid #00EEFF; 
 }
 
@@ -222,6 +220,9 @@ Settings
   .home,
   .leaders {
     max-width: 90%;
+    max-height: 90%;
+    padding-bottom: .5em;
+
   }
 
 }
