@@ -10,11 +10,11 @@ import {
 } from "../../components";
 import logo from "../../assets/settings.png";
 import Confetti from "react-confetti";
-import useSound from 'use-sound';
-import cheer from '../../assets/sounds/cheer.mp3'
-import correct from '../../assets/sounds/correct.mp3'
-import incorrect from '../../assets/sounds/incorrect.mp3'
-
+import useSound from "use-sound";
+import cheer from "../../assets/sounds/cheer.mp3";
+import correct from "../../assets/sounds/correct.mp3";
+import incorrect from "../../assets/sounds/incorrect.mp3";
+import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 const axios = require("axios");
 
 function Home(props) {
@@ -30,15 +30,17 @@ function Home(props) {
 	const [countDown, setCountDown] = useState(10);
 	const [time, setTime] = useState(countDown);
 	const [highScore, setHighScore] = useState(false);
-  const [mute, setMute] = useState(true);
+	const [mute, setMute] = useState(true);
 	const { width, height } = useWindowSize();
 	const points = { easy: 5, medium: 10, hard: 15 };
-
 
 	//Quiz Start & Settings handlers
 	function handleStartQuiz() {
 		setAnswerSelected(false);
-		return setShowQuestion(prevShowQuestion => !prevShowQuestion);
+    if (quizData.length > 1) {
+      return setShowQuestion(prevShowQuestion => !prevShowQuestion);
+
+    }
 	}
 
 	function settingsToggle() {
@@ -55,9 +57,10 @@ function Home(props) {
 		});
 	}
 
-  function soundToggle() {
-    return setMute(prevMute => !prevMute)
-  }
+	function soundToggle() {
+		return setMute(prevMute => !prevMute);
+	}
+
 
 	//  Questions array from open trivia API on page load
 	useEffect(() => {
@@ -73,14 +76,16 @@ function Home(props) {
 		getQuizData();
 	}, [quizUrl]);
 
+
 	// Question Countdown Custom hook
 	useInterval(() => {
 		if (showQuestion && !answerSelected) {
 			return time === 0
-				? (answerClick(), setTime(countDown), ( mute && buzzer()))
+				? (answerClick(), setTime(countDown), mute && buzzer())
 				: setTime(prevTime => prevTime - 1);
 		}
 	}, 1000);
+
 
 	// handler for score, questionNumber and answerSelected states
 	function answerClick(a) {
@@ -103,42 +108,42 @@ function Home(props) {
 			? (props.setPlayer(prevPlayer => ({
 					...prevPlayer,
 					score: prevPlayer.score + points[currentQuestion.difficulty],
-			  }))
-        , (mute && chime())
-        )
-			: (props.player.playerScore, (mute && buzzer()));
+			  })),
+			  mute && chime())
+			: mute && buzzer();
 	}
+
 
 	// Post player to database on gameFinished
 	useEffect(() => {
-    async function highS() {
-      try {
-        let resp = await axios.post(
-          "https://q-night.herokuapp.com/leaderBoard",
-          {
-            name: props.player.name,
-            score: props.player.score,
-          }
-        );
-        console.log(resp.data);
-        console.log(resp);
-      } catch (err) {
-        console.error(`Couldn't send player data to database: ${err}`);
-      }
-    }
+		async function highS() {
+			try {
+				let resp = await axios.post(
+					"https://q-night.herokuapp.com/leaderBoard",
+					{
+						name: props.player.name,
+						score: props.player.score,
+					}
+				);
+				console.log(resp.data);
+				console.log(resp);
+			} catch (err) {
+				console.error(`Couldn't send player data to database: ${err}`);
+			}
+		}
 
 		if (props.gameFinished && props.player.score >= 20) {
 			setHighScore(true);
-      mute && cheers();
-      highS();
-		} 
-		
+			mute && cheers();
+			highS();
+		}
 	}, [props.gameFinished]);
 
-  // Sound Effects
-  const [cheers] = useSound(cheer);
-  const [chime] = useSound(correct);
-  const [buzzer] = useSound(incorrect);
+
+	// Sound Effects
+	const [cheers] = useSound(cheer);
+	const [chime] = useSound(correct);
+	const [buzzer] = useSound(incorrect);
 
 	return (
 		<>
@@ -164,11 +169,15 @@ function Home(props) {
 							</form>
 							<br></br>
 
-							<button disabled={!props.player.name} onClick={handleStartQuiz}>
+							<button 
+                className='primary_btn'
+                disabled={!props.player.name} 
+                onClick={handleStartQuiz}
+                >
 								Start
 							</button>
 
-							<div>
+							<button className='secondary_btn'>
 								<img
 									id='settings-btn'
 									src={logo}
@@ -177,7 +186,7 @@ function Home(props) {
 									width='40px'
 									onClick={settingsToggle}
 								/>
-							</div>
+							</button>
 
 							{showSettings && (
 								<Settings
@@ -213,20 +222,24 @@ function Home(props) {
 					<br></br>
 					{props.gameFinished && (
 						<>
-							{highScore ? (
-								<h3 className='title'>Great Job! You made it to the LeaderBoard!</h3>
-							) : (
+							{highScore ? 
+								<h3 className='title'>
+									Great Job! You made it to the LeaderBoard!
+								</h3>
+							: 
 								<h3 className='title'>
 									You didn't make the Leaderboard! Keep practicing...
 								</h3>
-							)}
+							}
 							<Link className='btn-go-scores' to='/leaderBoard'>
 								Go to Scores
 							</Link>
 						</>
 					)}
 
-          <button className="sound_toggle" onClick={soundToggle}>Mute</button>
+					<button className='secondary_btn sound_btn' onClick={soundToggle}>
+            {mute? <FaVolumeUp /> : <FaVolumeMute /> }
+					</button>
 				</div>
 			</div>
 			{highScore && (
