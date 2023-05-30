@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
 	Questions,
 	AnswerButtons,
@@ -6,10 +8,13 @@ import {
 	useInterval,
 	useWindowSize,
 } from "../../components";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import logo from "../../assets/settings.png";
 import Confetti from "react-confetti";
+import useSound from 'use-sound';
+import cheer from '../../assets/sounds/cheer.mp3'
+import correct from '../../assets/sounds/correct.mp3'
+import incorrect from '../../assets/sounds/incorrect.mp3'
+
 const axios = require("axios");
 
 function Home(props) {
@@ -24,8 +29,11 @@ function Home(props) {
 	);
 	const [countDown, setCountDown] = useState(10);
 	const [time, setTime] = useState(countDown);
+	const [highScore, setHighScore] = useState(false);
+  const [mute, setMute] = useState(true);
 	const { width, height } = useWindowSize();
 	const points = { easy: 5, medium: 10, hard: 15 };
+
 
 	//Quiz Start & Settings handlers
 	function handleStartQuiz() {
@@ -47,6 +55,10 @@ function Home(props) {
 		});
 	}
 
+  function soundToggle() {
+    return setMute(prevMute => !prevMute)
+  }
+
 	//  Questions array from open trivia API on page load
 	useEffect(() => {
 		async function getQuizData() {
@@ -65,7 +77,7 @@ function Home(props) {
 	useInterval(() => {
 		if (showQuestion && !answerSelected) {
 			return time === 0
-				? (answerClick(), setTime(countDown))
+				? (answerClick(), setTime(countDown), ( mute && buzzer()))
 				: setTime(prevTime => prevTime - 1);
 		}
 	}, 1000);
@@ -88,37 +100,45 @@ function Home(props) {
 		}
 
 		return a === currentQuestion.correct_answer
-			? props.setPlayer(prevPlayer => ({
+			? (props.setPlayer(prevPlayer => ({
 					...prevPlayer,
 					score: prevPlayer.score + points[currentQuestion.difficulty],
 			  }))
-			: props.player.playerScore;
+        , (mute && chime())
+        )
+			: (props.player.playerScore, (mute && buzzer()));
 	}
 
 	// Post player to database on gameFinished
 	useEffect(() => {
-		if (props.gameFinished && props.player.score >= 25) {
-			console.log("high scores!");
-			async function highS() {
-				try {
-					let resp = await axios.post(
-						"https://q-night.herokuapp.com/leaderBoard",
-						{
-							name: props.player.name,
-							score: props.player.score,
-						}
-					);
-					console.log(resp.data);
-					console.log(resp);
-				} catch (err) {
-					console.error(`Couldn't send player data to database: ${err}`);
-				}
-			}
-			highS();
-		} else if (props.gameFinished) {
-			console.log("Keep practicing!");
-		}
+    async function highS() {
+      try {
+        let resp = await axios.post(
+          "https://q-night.herokuapp.com/leaderBoard",
+          {
+            name: props.player.name,
+            score: props.player.score,
+          }
+        );
+        console.log(resp.data);
+        console.log(resp);
+      } catch (err) {
+        console.error(`Couldn't send player data to database: ${err}`);
+      }
+    }
+
+		if (props.gameFinished && props.player.score >= 20) {
+			setHighScore(true);
+      mute && cheers();
+      highS();
+		} 
+		
 	}, [props.gameFinished]);
+
+  // Sound Effects
+  const [cheers] = useSound(cheer);
+  const [chime] = useSound(correct);
+  const [buzzer] = useSound(incorrect);
 
 	return (
 		<>
@@ -191,19 +211,32 @@ function Home(props) {
 					)}
 
 					<br></br>
-					{props.gameFinished && 
-						<Link className='btn-go-scores' to='/leaderBoard'>
-							Go to Scores
-						</Link>
-					}
+					{props.gameFinished && (
+						<>
+							{highScore ? (
+								<h3 className='title'>Great Job! You made it to the LeaderBoard!</h3>
+							) : (
+								<h3 className='title'>
+									You didn't make the Leaderboard! Keep practicing...
+								</h3>
+							)}
+							<Link className='btn-go-scores' to='/leaderBoard'>
+								Go to Scores
+							</Link>
+						</>
+					)}
+
+          <button className="sound_toggle" onClick={soundToggle}>Mute</button>
 				</div>
 			</div>
-			{props.gameFinished && ( props.player.score >= 25 && <Confetti
-				className='confetti'
-				width={width}
-				height={height}
-				recycle={false}
-			/>)}
+			{highScore && (
+				<Confetti
+					className='confetti'
+					width={width}
+					height={height}
+					recycle={false}
+				/>
+			)}
 		</>
 	);
 }
