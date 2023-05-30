@@ -17,6 +17,7 @@ import incorrect from "../../assets/sounds/incorrect.mp3";
 import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 const axios = require("axios");
 
+
 function Home(props) {
 	const [showQuestion, setShowQuestion] = useState(false);
 	const [showSettings, setShowSettings] = useState(false);
@@ -151,7 +152,7 @@ function Home(props) {
 				<div className='quiz'>
 					{!showQuestion && (
 						<>
-							<h3 className='quiz-info'>
+							<h3 className='quiz_info_heading'>
 								Welcome to Quiz Night, you will face {quizData.length} questions
 							</h3>
 							<h4 className='quiz-info'>
@@ -213,7 +214,7 @@ function Home(props) {
 							/>
 							<br></br>
 							{!answerSelected && <h2 className='time-heading'>{time}</h2>}
-							<h4 className='quiz-info'>
+							<h4 className='quiz-info quiz_info_score'>
 								{props.player.name}'s Score: {props.player.score} points
 							</h4>
 						</>
@@ -223,15 +224,15 @@ function Home(props) {
 					{props.gameFinished && (
 						<>
 							{highScore ? 
-								<h3 className='title'>
+								<h3 className='result_text tracking-in-expand-fwd'>
 									Great Job! You made it to the LeaderBoard!
 								</h3>
 							: 
-								<h3 className='title'>
+								<h3 className='result_text tracking-in-expand-fwd'>
 									You didn't make the Leaderboard! Keep practicing...
 								</h3>
 							}
-							<Link className='btn-go-scores' to='/leaderBoard'>
+							<Link className='scores_btn' to='/leaderBoard'>
 								Go to Scores
 							</Link>
 						</>
