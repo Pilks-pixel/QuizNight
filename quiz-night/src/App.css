@@ -66,14 +66,14 @@ Layout
 }
 
 .home {
-	width: 70%;
+	width: 60%;
 	position: relative;
 }
 
 .quiz-info,
 .quiz_info_heading {
 	max-width: min(90%, 400px);
-  margin-bottom: 1.5em;
+  	margin-bottom: 1.5em;
 }
 
 
@@ -91,10 +91,13 @@ Layout
 	padding: 0.5em 1em 0.5em 1em;
 	width: 95%;
 	margin: 0 auto;
-  outline: 2px solid hotpink;
 }
 
 /* leaderboard layout */
+
+.headings {
+	margin: 1em;
+}
 
 .leader-container-score {
 	border-bottom: 1px solid rgb(225, 225, 225);
@@ -170,6 +173,12 @@ button:hover {
 	font-size: 1rem;
 	cursor: pointer;
 	text-align: center;
+	transition: opacity 350ms ease-out;
+}
+
+.secondary_btn:hover {
+	border: none;
+	opacity: .5;
 }
 
 .scores_btn {
@@ -381,7 +390,7 @@ Media
 @media (max-width: 340px) {
 	.time-heading,
 	.quiz-info,
-  .quiz_info_heading,
+  	.quiz_info_heading,
 	.container-answer-btns button {
 		font-size: 0.8rem;
 	}
