@@ -15,17 +15,20 @@ Typography
 	font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
-.quiz_info_heading,
-.question-number-heading {
+.quiz_info_heading {
   font-weight: 700;
 }
 
 .quiz-info {
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.question-number-heading,
+.scores_btn {
+  font-weight: 300;
 }
 
 .scores_btn {
-  font-weight: 300;
 	color: #333333;
 	text-decoration: none;
 }
@@ -45,6 +48,7 @@ Layout
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
+  width: 100%;
 }
 
 .home,
@@ -62,14 +66,16 @@ Layout
 }
 
 .home {
-	max-width: max-content;
+	width: 60%;
 	position: relative;
 }
 
 .quiz-info,
 .quiz_info_heading {
 	max-width: min(90%, 400px);
+  	margin-bottom: 1.5em;
 }
+
 
 .app-container {
 	display: flex;
@@ -81,13 +87,17 @@ Layout
 	display: grid;
 	align-items: center;
 	/* columns min size revised for desktop */
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
 	padding: 0.5em 1em 0.5em 1em;
-	width: 90%;
+	width: 95%;
 	margin: 0 auto;
 }
 
 /* leaderboard layout */
+
+.headings {
+	margin: 1em;
+}
 
 .leader-container-score {
 	border-bottom: 1px solid rgb(225, 225, 225);
@@ -163,10 +173,16 @@ button:hover {
 	font-size: 1rem;
 	cursor: pointer;
 	text-align: center;
+	transition: opacity 350ms ease-out;
+}
+
+.secondary_btn:hover {
+	border: none;
+	opacity: .5;
 }
 
 .scores_btn {
-	margin: 0 0.5rem 1rem;
+	margin: 0 0.5rem 3rem;
 }
 
 .sound_btn {
@@ -336,7 +352,6 @@ Media
   .quiz_info_heading,
 	.leader-title {
 		margin-top: 0.5em;
-		margin-bottom: 0.5em;
 		padding: 0;
 		font-size: 1rem;
 	}
@@ -363,8 +378,7 @@ Media
 
 	.home,
 	.leaders {
-		max-width: 90%;
-		max-height: 90%;
+		width: 90%;
 		padding-bottom: 0.5em;
 	}
 
@@ -376,16 +390,13 @@ Media
 @media (max-width: 340px) {
 	.time-heading,
 	.quiz-info,
-  .quiz_info_heading,
+  	.quiz_info_heading,
 	.container-answer-btns button {
 		font-size: 0.8rem;
 	}
 
 	.home {
-		max-width: 100%;
+		width: 95%;
 	}
 
-	.container-answer-btns {
-		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-	}
 }

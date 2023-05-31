@@ -120,7 +120,7 @@ function Home(props) {
 		async function highS() {
 			try {
 				let resp = await axios.post(
-					"https://q-night.herokuapp.com/leaderBoard",
+					"https://quizbackend-jz6f.onrender.com/leaderboard",
 					{
 						name: props.player.name,
 						score: props.player.score,
