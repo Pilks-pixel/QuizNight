@@ -15,7 +15,7 @@ export default function Settings(props) {
                 setOptions(response.data.trivia_categories);
 
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -32,7 +32,6 @@ export default function Settings(props) {
         const { value, name } = e.target;
         setPreferences(prevCat => ({ ...prevCat, [name]: value }))
     }
-    console.log(preferences);
 
     // Function enables API call to be modified acording to user preferences
     const handleSubmit = (e) => {
@@ -41,7 +40,6 @@ export default function Settings(props) {
         e.preventDefault();
     }
 
-    console.log(props.url)
 
     return (
         <form onSubmit={handleSubmit} className='settings-tab'>
