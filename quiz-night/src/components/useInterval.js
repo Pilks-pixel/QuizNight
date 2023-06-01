@@ -1,4 +1,4 @@
-import {React, useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 
 // useInterval hook taken from Overreacted.io by Dan Abramov
 export default function useInterval(callback, delay) {
