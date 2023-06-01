@@ -16,12 +16,13 @@ export default function AnswerButtons(props) {
 	);
 	
 	// Array of answers in random order
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+	/* eslint-disable react-hooks/exhaustive-deps */
 	useEffect(() => {
-		let answers = [...decodedIncorrectAnswer, decodedAnswer];
+		let answers = [...decodedIncorrectAnswer, decodedAnswer] 
 		answers.sort(() => Math.random() - 0.5);
 		setAnswerOptions(answers);
 	}, [props.question]);
+	/* eslint-enable react-hooks/exhaustive-deps */
 
 	// Iterates over the answerOptions array and generates a button for each one
 	const answerBtnElements = answerOptions.map((a, index) => {
@@ -35,7 +36,6 @@ export default function AnswerButtons(props) {
 						? "correct"
 						: "incorrect"
 				}`}
-				// style={props.styles}
 				onClick={() => props.newQuestion(a)}
 				disabled={props.btnOff}
 			>
