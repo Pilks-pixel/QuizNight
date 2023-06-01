@@ -28,6 +28,7 @@ export default function AnswerButtons(props) {
 	const answerBtnElements = answerOptions.map((a, index) => {
 		return (
 			<button
+				aria-live="polite"
 				key={index}
 				className={`primary_btn ${
 					!props.selected

@@ -43,17 +43,17 @@ export default function Settings(props) {
 
     return (
         <form onSubmit={handleSubmit} className='settings-tab'>
-            <select value={preferences.category} onChange={handleCategoryChange} name='category'>
+            <select aria-label="Category select" value={preferences.category} onChange={handleCategoryChange} name='category'>
                 <option value=''>All Categories</option>
                 {categories}
             </select>
-            <select value={preferences.difficulty} onChange={handleCategoryChange} name='difficulty'>
+            <select aria-label="Difficulty select" value={preferences.difficulty} onChange={handleCategoryChange} name='difficulty'>
                 <option value=''>Any Difficulty</option>
                 <option value={`&difficulty=easy`}>Easy</option>
                 <option value={`&difficulty=medium`}>Medium</option>
                 <option value={`&difficulty=hard`}>Hard</option>
             </select>
-            <input type="submit" value="Apply Settings" id='apply-settings' />
+            <input aria-label="apply settings" type="submit" value="Apply Settings" id='apply-settings' />
         </form>
        
     )
