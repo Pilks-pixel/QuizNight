@@ -28,7 +28,7 @@ function Home(props) {
 	const [quizUrl, setQuizUrl] = useState(
 		"https://opentdb.com/api.php?amount=6&url3986"
 	);
-	const [countDown, setCountDown] = useState(10);
+	const countDown = 10;
 	const [time, setTime] = useState(countDown);
 	const [highScore, setHighScore] = useState(false);
 	const [mute, setMute] = useState(true);
@@ -116,6 +116,7 @@ function Home(props) {
 
 
 	// Post player to database on gameFinished
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		async function highS() {
 			try {

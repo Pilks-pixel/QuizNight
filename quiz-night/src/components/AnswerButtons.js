@@ -14,13 +14,16 @@ export default function AnswerButtons(props) {
 	let decodedIncorrectAnswer = props.question.incorrect_answers.map(answer =>
 		decodeHTML(answer)
 	);
-
-	// Creates an array of all answers and places them in random order
+	
+	// Array of answers in random order
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		let answers = [...decodedIncorrectAnswer, decodedAnswer];
 		answers.sort(() => Math.random() - 0.5);
 		setAnswerOptions(answers);
 	}, [props.question]);
+
+	console.log({decodedAnswer}, {decodedIncorrectAnswer}, props.question)
 
 	// Iterates over the answerOptions array and generates a button for each one
 	const answerBtnElements = answerOptions.map((a, index) => {
