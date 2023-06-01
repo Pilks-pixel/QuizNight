@@ -14,7 +14,7 @@ import useSound from "use-sound";
 import cheer from "../../assets/sounds/cheer.mp3";
 import correct from "../../assets/sounds/correct.mp3";
 import incorrect from "../../assets/sounds/incorrect.mp3";
-import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
+import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 const axios = require("axios");
 
 
@@ -40,8 +40,7 @@ function Home(props) {
 		setAnswerSelected(false);
     if (quizData.length > 1) {
       return setShowQuestion(prevShowQuestion => !prevShowQuestion);
-
-    }
+    	}
 	}
 
 	function settingsToggle() {
@@ -164,6 +163,7 @@ function Home(props) {
 							</h4>
 							<form>
 								<input
+									aria-label="player name"
 									type='text'
 									placeholder='Enter Player Name...'
 									onChange={handleQuizInfoChange}
@@ -174,14 +174,14 @@ function Home(props) {
 							<br></br>
 
 							<button 
-                className='primary_btn'
-                disabled={!props.player.name} 
-                onClick={handleStartQuiz}
-                >
+								className='primary_btn'
+								disabled={!props.player.name} 
+								onClick={handleStartQuiz}
+                			>
 								Start
 							</button>
 
-							<button className='secondary_btn'>
+							<button className='secondary_btn' aria-label="settings button">
 								<img
 									id='settings-btn'
 									src={logo}
@@ -241,8 +241,12 @@ function Home(props) {
 						</>
 					)}
 
-					<button className='secondary_btn sound_btn' onClick={soundToggle}>
-            {mute? <FaVolumeUp /> : <FaVolumeMute /> }
+					<button 
+						className='secondary_btn sound_btn' 
+						onClick={soundToggle} 
+						aria-label='sound toggle button'
+						>
+            			{mute? <FaVolumeUp /> : <FaVolumeMute /> }
 					</button>
 				</div>
 			</div>

@@ -14,7 +14,7 @@ export default function Questions(props) {
     
     return(
         <>
-            <h3 className="quiz-info">{decodeHTML(props.question.question)}</h3>
+            <h3 aria-live="polite" className="quiz-info">{decodeHTML(props.question.question)}</h3>
         </>
     )
 };
