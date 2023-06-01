@@ -23,8 +23,6 @@ export default function AnswerButtons(props) {
 		setAnswerOptions(answers);
 	}, [props.question]);
 
-	console.log({decodedAnswer}, {decodedIncorrectAnswer}, props.question)
-
 	// Iterates over the answerOptions array and generates a button for each one
 	const answerBtnElements = answerOptions.map((a, index) => {
 		return (
