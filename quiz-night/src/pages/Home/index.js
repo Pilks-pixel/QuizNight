@@ -116,7 +116,7 @@ function Home(props) {
 
 
 	// Post player to database on gameFinished
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+	/* eslint-disable react-hooks/exhaustive-deps */
 	useEffect(() => {
 		async function highS() {
 			try {
@@ -140,6 +140,8 @@ function Home(props) {
 			highS();
 		}
 	}, [props.gameFinished]);
+	/* eslint-enable react-hooks/exhaustive-deps */
+
 
 
 	// Sound Effects
