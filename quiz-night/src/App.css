@@ -16,16 +16,16 @@ Typography
 }
 
 .quiz_info_heading {
-  font-weight: 700;
+	font-weight: 700;
 }
 
 .quiz-info {
-  font-weight: 500;
+	font-weight: 500;
 }
 
 .question-number-heading,
 .scores_btn {
-  font-weight: 300;
+	font-weight: 300;
 }
 
 .scores_btn {
@@ -48,7 +48,7 @@ Layout
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-  width: 100%;
+	width: 100%;
 }
 
 .home,
@@ -73,9 +73,8 @@ Layout
 .quiz-info,
 .quiz_info_heading {
 	max-width: min(90%, 400px);
-  	margin-bottom: 1.5em;
+	margin-bottom: 1.5em;
 }
-
 
 .app-container {
 	display: flex;
@@ -96,7 +95,7 @@ Layout
 /* leaderboard layout */
 
 .headings {
-	margin: 1em;
+	margin: .5em;
 }
 
 .leader-container-score {
@@ -178,7 +177,7 @@ button:hover {
 
 .secondary_btn:hover {
 	border: none;
-	opacity: .5;
+	opacity: 0.5;
 }
 
 .scores_btn {
@@ -245,7 +244,8 @@ Settings
 	align-items: stretch;
 	gap: 12px;
 	padding: 5px;
-	width: 300px;
+	width: min(300px, 100%);
+	margin-bottom: 2rem;
 }
 
 #apply-settings:hover {
@@ -349,11 +349,16 @@ Media
 	}
 
 	.quiz-info,
-  .quiz_info_heading,
+	.quiz_info_heading,
 	.leader-title {
-		margin-top: 0.5em;
+		margin-top: 0.5rem;
+		margin-bottom: 2rem;
 		padding: 0;
 		font-size: 1rem;
+	}
+
+	.quiz_info_heading {
+		margin-bottom: 2.5rem;
 	}
 
 	.quiz-info,
@@ -361,9 +366,9 @@ Media
 		font-size: 0.9rem;
 	}
 
-  .quiz_info_score {
-    margin-bottom: 1rem;
-  }
+	.quiz_info_score {
+		margin-bottom: 1rem;
+	}
 
 	.question-number-heading {
 		font-size: 0.8rem;
@@ -390,7 +395,7 @@ Media
 @media (max-width: 340px) {
 	.time-heading,
 	.quiz-info,
-  	.quiz_info_heading,
+	.quiz_info_heading,
 	.container-answer-btns button {
 		font-size: 0.8rem;
 	}
@@ -398,5 +403,4 @@ Media
 	.home {
 		width: 95%;
 	}
-
 }
