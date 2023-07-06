@@ -3,9 +3,24 @@ Typography
 =============== */
 
 .headings {
-	font-family: "Vampiro One", cursive;
+	font-family: 'Titillium Web', sans-serif;
 	font-size: 12vmin;
+	font-weight: 700;
+	text-transform: uppercase;
 }
+
+.neonText {
+	color: rgb(52, 52, 39);
+	text-shadow:
+	  0 0 7px #fff,
+	  0 0 10px #fff,
+	  0 0 21px #fff,
+	  0 0 42px rgb(0, 255, 221),
+	  0 0 82px rgb(0, 255, 255),
+	  0 0 92px rgb(0, 251, 255),
+	  0 0 102px rgb(0, 238, 255),
+	  0 0 151px rgb(0, 229, 255);
+  }
 
 .quiz-info,
 .leader-title,
@@ -219,11 +234,6 @@ select {
 Settings
 ============ */
 
-/* #settings-btn {
-  padding: 10px;
-  cursor: pointer;
-} */
-
 #settings-btn:hover {
 	animation: rotate 2s ease 0.3s;
 }
@@ -266,40 +276,6 @@ Animation
 		cubic-bezier(0.215, 0.61, 0.355, 1) both;
 	animation: tracking-in-expand-fwd 2.8s cubic-bezier(0.215, 0.61, 0.355, 1)
 		both;
-}
-
-/**
- * ----------------------------------------
- * animation text-shadow-pop-right
- * ----------------------------------------
- */
-@-webkit-keyframes text-shadow-pop-right {
-	0% {
-		text-shadow: 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555,
-			0 0 #555555, 0 0 #555555, 0 0 #555555;
-		-webkit-transform: translateX(0);
-		transform: translateX(0);
-	}
-	100% {
-		text-shadow: 1px 0 #555555, 2px 0 #555555, 3px 0 #555555, 4px 0 #555555,
-			5px 0 #555555, 6px 0 #555555, 7px 0 #555555, 8px 0 #555555;
-		-webkit-transform: translateX(-8px);
-		transform: translateX(-8px);
-	}
-}
-@keyframes text-shadow-pop-right {
-	0% {
-		text-shadow: 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555,
-			0 0 #555555, 0 0 #555555, 0 0 #555555;
-		-webkit-transform: translateX(0);
-		transform: translateX(0);
-	}
-	100% {
-		text-shadow: 1px 0 #555555, 2px 0 #555555, 3px 0 #555555, 4px 0 #555555,
-			5px 0 #555555, 6px 0 #555555, 7px 0 #555555, 8px 0 #555555;
-		-webkit-transform: translateX(-8px);
-		transform: translateX(-8px);
-	}
 }
 
 /**

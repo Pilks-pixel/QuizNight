@@ -36,7 +36,7 @@ export default function LeaderTable(props) {
 
 	return (
 		<div className='leaders'>
-			{loading ? <h2 className='headings'>Loading ...</h2> : leaderElements}
+			{loading ? <h2 className='headings neonText'>Loading ...</h2> : leaderElements}
 		</div>
 	);
 }
