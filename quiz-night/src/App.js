@@ -6,6 +6,9 @@ import { useState } from 'react';
 
 
 
+
+
+
 function App() {
 
   const [playerData, setPlayerData] = useState({name:"",score:0});
@@ -18,8 +21,7 @@ function App() {
   return (
     <div className="App">
       <header>
-      <h1 className="headings text-shadow-pop-right" >Quiz Night</h1>
-
+      <h1 className="headings neonText" >Quiz Night</h1>
       </header>
 
       <div className="app-container" > 
